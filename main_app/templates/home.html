@@ -1,1 +1,61 @@
-<h1>Hello i'm Home</h1>
+ {% comment %} NEW FORM {% endcomment %}
+      <form method="POST" action = "{% url 'home' %}">
+          {% csrf_token %}
+          {% comment %} NEW SEMANTIC FORM {% endcomment %}
+            <div class="ui equal width form">
+              
+                <div class="field">
+                  <label>Username</label>
+                  <input type="text" placeholder="Username" name="username" required>
+                </div>
+                <div class="fields">
+                <div class="field">
+                  <label>First Name</label>
+                  <input type="text" name="first_name" placeholder="John" required>
+                </div>
+                <div class="field">
+                  <label>Last Name</label>
+                  <input type="text" name="last_name" placeholder="Smith" required>
+                </div>
+                </div>
+                    <div class="field">
+                  <label>Email</label>
+                  <input type="email" name="email" placeholder="TravelPro@Wayfarer.com" required>
+                </div>
+                <div class="field">
+                  <label>Current City</label>
+                  <input type="text" name="current_city" placeholder="Seattle" required>
+                </div>
+                <div class="ui message">
+                  <div class="header">Password requirements</div>
+                  <ul class="list">
+                    <li>Minimum 8 characters.</li>
+                    <li>Can't be a commonly used password</li>
+                    <li>Can't be entirely numeric.</li>
+                    <li>Can't be too similar to personal information</li>
+                  </ul>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                  <label>Password</label>
+                  <input type="password" name="password1" placeholder="Password" required>
+                </div>    <div class="field">
+                  <label>Password Confirmation</label>
+                  <input type="password" name="password2" placeholder="Password" required>
+                </div>
+                </div>
+            </div>
+            {% if error %}
+              <div class="ui error message">
+                <div class="header">Action Forbidden</div>
+                 <p>{{error}}</p>
+              </div>
+            {% endif %}
+              <div class="actions">
+          <input type="submit" class="ui inverted button" value="Sign Up"/>
+          {% comment %} REVIEW: Cancel button to close modal/redirect to SAME page {% endcomment %}
+          {% comment %} <div class="ui button" id="hide_modal">Cancel</div> {% endcomment %}
+          <input type="hidden" name="next" value="{{ next }}"/>
+      
+        </div>
+    </form>   

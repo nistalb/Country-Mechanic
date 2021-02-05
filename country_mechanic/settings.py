@@ -119,3 +119,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# where requests are redirected after login
+LOGIN_REDIRECT_URL = '/main/'
+
+# where requests are redirected for login when using the login_required() decorator
+LOGIN_URL = '/'
+
+# where requests are redirected after logout
+LOGOUT_REDIRECT_URL = '/'
