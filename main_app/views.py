@@ -1,16 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import NewUserForm
 
+# import models
+from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record 
+
 # Create your views here.
 def home(request):
     if request.method == 'POST':
-        signup_form = NewUserForm(request.post)
-        username_form = request.POST('username')
-        email_form = request.POST('email')
+        signup_form = NewUserForm(request.POST)
+        username_form = request.POST['username']
+        email_form = request.POST['email']
         if User.objects.filter(username=username_form).exists():
             context={'error': 'Username is already taken'}
             return render(request, 'home.html', context)

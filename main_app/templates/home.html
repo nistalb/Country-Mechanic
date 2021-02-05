@@ -22,10 +22,6 @@
                   <label>Email</label>
                   <input type="email" name="email" placeholder="TravelPro@Wayfarer.com" required>
                 </div>
-                <div class="field">
-                  <label>Current City</label>
-                  <input type="text" name="current_city" placeholder="Seattle" required>
-                </div>
                 <div class="ui message">
                   <div class="header">Password requirements</div>
                   <ul class="list">
@@ -59,3 +55,30 @@
       
         </div>
     </form>   
+    <hr/>
+    <form method="POST" action = "{% url 'login' %}">
+          {% csrf_token %}
+{% comment %} NEW SEMANTIC FORM {% endcomment %}
+            <div class="ui equal width form error">
+              <div class="fields">
+                <div class="field">
+                  <label>Username</label>
+                  <input type="text" placeholder="Username" name="username">
+                </div>
+                <div class="field">
+                  <label>Password</label>
+                  <input type="password" name="password">
+                </div>
+              </div>
+            </div>
+            {% if error_message %}
+              <div class="ui error message">
+                <div class="header">Action Forbidden</div>
+                 <p>{{error_message}}</p>
+              </div>
+            {% endif %}
+    <div class="actions">
+          <input type="submit" class="ui inverted button" value="Login"/>
+          <input type="hidden" name="next" value="{{ next }}"/>
+    </div>
+      </form>  
