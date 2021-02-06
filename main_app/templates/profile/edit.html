@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+{% block content %}
+    <div id="container-box" class="ui center aligned stackable grid container">
+
+        <form action="{% url 'profile_edit' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="ui equal width form">
+                <div class="fields">
+                    <div class="field">
+                        <h3 class='ui center aligned header'>First Name</h3>
+                        <input type="text" name="first_name" value="{{ user.first_name }}" >
+                    </div>
+                    <div class="field">
+                        <h3 class='ui center aligned header'>Last Name</h3>
+                        <input type="text" name="last_name" value="{{ user.last_name }}" >
+                    </div>
+                </div>
+                <div class="field">
+                  <h3 class='ui center aligned header'>Email</h3>
+                  <input type="text" name="email" value="{{ user.email }}" >
+                </div>   
+                <div class="field">
+                  <h3 class='ui center aligned header'>Location</h3>
+                  <input type="text" name="location" value="{{ profile.location }}" >
+                </div>
+                <div class="field">
+                  <h3 class='ui center aligned header'>Hourly Rate</h3>
+                  <input type="text" name="hourly_rate" value="{{ profile.hourly_rate }}" >
+                </div>
+            </div>
+            {% if error %}
+              <div class="ui error message">
+                <div class="header">Action Forbidden</div>
+                 <p>{{error}}</p>
+              </div>
+            {% endif %}
+
+            <input type="submit" class="ui button" value="Edit Profile" />
+        </form>
+</div>
+
+{% endblock %}

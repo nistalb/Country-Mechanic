@@ -41,7 +41,7 @@ def main(request):
 
 def profile(request):
     if request.method == 'POST':
-        profile_form = Profile_Form(request.POST)
+        profile_form = ProfileForm(request.POST)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
             profile.user = request.user
@@ -62,7 +62,7 @@ def profile_edit(request):
     user = User.objects.get(id=request.user.id)
     if request.method == 'POST':
         location = request.POST['location']
-        hourly_rate = ['hourly_rate']
+        hourly_rate = request.POST['hourly_rate']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         email = request.POST['email']
@@ -73,7 +73,7 @@ def profile_edit(request):
         user.save()
         return redirect('profile')
 
-    profile_form = Profile_Form(instance=profile)
+    profile_form = ProfileForm(instance=profile)
     user_form = NewUserForm(instance=user)
     context = {'profile_form': profile_form, 'user_form': user_form, 'user': user, 'profile': profile}
     return render(request, 'profile/edit.html', context)

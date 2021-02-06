@@ -24,10 +24,10 @@
             <form action="{% url 'profile' %}" method="POST">
                 {% csrf_token %}
                 {{profile_form.as_p}}
-                <input class='ui inverted button' type="submit" value='Add Current City'>
+                <input class='ui button' type="submit" value='Add Info'>
             </form>
         {% else %}
-            <a href="{% url 'profile_edit' %}" class="ui inverted button">Edit Profile</a>
+            <a href="{% url 'profile_edit' %}" class="ui button">Edit Profile</a>
         {% endif %}
     </section>
 </div>
