@@ -7,3 +7,8 @@ class NewUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('location', 'hourly_rate')

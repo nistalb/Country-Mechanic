@@ -2,12 +2,27 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+# Used in Profile model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here.
 
 class Profile(models.Model):
     location = models.CharField(max_length=100, blank=True)
     hourly_rate = models.PositiveIntegerField(blank=True, default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # creates a Profile object tied to the user when user is first saved
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    # saves the profile object whenever the user is saved
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
     def __str__(self):
         return f"{self.location}"

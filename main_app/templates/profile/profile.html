@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <section>
+        <h3 class="ui center aligned header">{{ user.first_name}} {{user.last_name}}</h3>
+        <p>Username: {{user.username}}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Password: for security reasons we do not show your password here.</p>
+        
+        {% if profile == "" %}
+            <p>Location: </p>
+            <p>Hourly rate: </p>
+        {% else %}
+            <p>Location: {{profile.location}}</p>
+            <p>Hourly rate:  {{profile.hourly_rate}}</p>
+        {% endif %}
+
+        <p>Date Joined: {{ user.date_joined }}</p>
+    </section>
+    <section>
+        {% if profile == "" %}
+            <p>Oops.  Looks like we are missing some information.  Let's go ahead and add it?</p>
+            <form action="{% url 'profile' %}" method="POST">
+                {% csrf_token %}
+                {{profile_form.as_p}}
+                <input class='ui inverted button' type="submit" value='Add Current City'>
+            </form>
+        {% else %}
+            <a href="{% url 'profile_edit' %}" class="ui inverted button">Edit Profile</a>
+        {% endif %}
+    </section>
+</div>
+
+{% endblock %}
