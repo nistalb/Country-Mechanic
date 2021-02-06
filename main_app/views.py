@@ -4,7 +4,7 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record 
@@ -37,7 +37,13 @@ def home(request):
     return render(request, 'home.html', context)
 
 def main(request):
-    return render(request, 'main.html')
+
+    if Equipment.objects.filter(user_id=request.user.id):
+        equipment = Equipment.objects.filter(user_id=request.user.id)
+    else:
+        equipment = ""
+    context = {'equipment': equipment}
+    return render(request, 'main.html', context)
 
 def profile(request):
     if request.method == 'POST':
@@ -68,6 +74,7 @@ def profile_edit(request):
         email = request.POST['email']
         user.last_name = last_name
         user.first_name = first_name
+        user.email = email
         user.profile.location = location
         user.profile.hourly_rate = hourly_rate
         user.save()
@@ -77,3 +84,27 @@ def profile_edit(request):
     user_form = NewUserForm(instance=user)
     context = {'profile_form': profile_form, 'user_form': user_form, 'user': user, 'profile': profile}
     return render(request, 'profile/edit.html', context)
+
+def equipment_create(request):
+    if request.method == 'POST':
+        equipment_form = EquipmentForm(request.POST)
+        if equipment_form.is_valid():
+            equipment = equipment_form.save(commit=False)
+            equipment.user = request.user
+            equipment.save()
+            return redirect('main')
+
+    
+    equipment_form = EquipmentForm()
+    context = {'equipment_form': equipment_form}
+    return render(request, 'equipment/create.html', context)
+
+def equipment_show(request, equipment_id):
+
+    if Equipment.objects.filter(user_id=request.user.id):
+        equipment_all = Equipment.objects.filter(user_id=request.user.id)
+    else:
+        equipment_all = ""
+    equipment_id = Equipment.objects.get(id=equipment_id)
+    context = {'equipment_all': equipment_all, 'equipment_id': equipment_id}
+    return render(request, 'equipment/show.html', context)

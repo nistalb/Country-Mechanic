@@ -4,26 +4,26 @@
 <div>
     <aside id="main_aside">
         <h3>Garage</h3>
-        {% if equipment == "" %}
-            <p>You haven't added any equipment yet.  Hit the Create Equipment Button to get started</p>
-        {% else %}
-            {% for equipment in equipment %}
+            {% for equipment in equipment_all %}
                 <div class="ui card">
                     <div class="content">
                         <div class="header">
                             <a href="{% url 'equipment_show' equipment_id=equipment.id %}"> 
-                                <p>{{ equipment.make }}</p>
-                                <p>{{ equipment.model }}</p>
-                            </a> 
+                            <p>{{ equipment.make }}</p>
+                            <p>{{ equipment.model }}</p>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-        {% endif %}
-
+        
         <a href="{% url 'equipment_create' %}" class="ui button">Create Equipment</a>
-
     </aside>
+
+    <div>
+        <p>{{equipment_id.make}}</p>
+        <p>{{equipment_id.model}}</p>
+    </div>
+    
 </div>
 
 {% endblock %}
