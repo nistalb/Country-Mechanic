@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div>
-    <aside id="main_aside">
-        <h3>Garage</h3>
-        {% if equipment == "" %}
-            <p>You haven't added any equipment yet.  Hit the Create Equipment Button to get started</p>
-        {% else %}
+<div id="garage">
+    <h3>Garage</h3>
+    {% if equipment == "" %}
+        <p>You haven't added any equipment yet.  Hit the Create Equipment Button to get started</p>
+    {% else %}
+        <div class="ui link cards">
             {% for equipment in equipment %}
-                <div class="ui card">
+                <div class="card">
                     <div class="content">
                         <i id="{{equipment.id}}" class="right floated close icon delete_modal"></i>
                         <div class="header">
@@ -21,25 +21,30 @@
                 </div>
 
                 {% comment %} DELETE MODAL {% endcomment %}
-                <div id="modal-{{ equipment.id }}" class="ui modal delete">
+                <div id="modal-{{ equipment.id }}" class="ui modal delete_equipment">
                     <i class="close icon"></i>
-                    <div class="header">
-                    Are you sure you want to delete: {{equipment.make}} {{equipment.model}}?
-                    </div>
-                    <div class="content">
-                        <a href="{% url 'equipment_delete' equipment_id=equipment.id %}" class="ui inverted button">
-                            Confirm Delete
-                        </a>
-                        <input type="hidden" name="next" value="{{ next }}" />
+                    <div class="ui equal width">
+                        <div class="header">
+                            <h1>DELETE</h1> 
+                        </div>
+                        <div class="content">
+                            <p>Are you sure you want to delete your {{equipment.make}} {{equipment.model}}?</p> 
+                        </div>
+                        <div class="actions">
+                            <a href="{% url 'equipment_delete' equipment_id=equipment.id %}" class="ui button">
+                                Confirm Delete
+                            </a>
+                            <div class="ui black deny button">Cancel</div>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </div>
                     </div>
                 </div>
 
             {% endfor %}
-        {% endif %}
+        </div>
+    {% endif %}
 
-        <a href="{% url 'equipment_create' %}" class="ui button">Create Equipment</a>
-
-    </aside>
+    <a href="{% url 'equipment_create' %}" id="garage_create_button" class="ui button">Create Equipment</a>
 </div>
 
 {% endblock %}

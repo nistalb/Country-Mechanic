@@ -37,7 +37,6 @@ def home(request):
     return render(request, 'home.html', context)
 
 def garage(request):
-
     if Equipment.objects.filter(user_id=request.user.id):
         equipment = Equipment.objects.filter(user_id=request.user.id)
     else:
