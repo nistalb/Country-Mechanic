@@ -26,7 +26,7 @@ def home(request):
                 if signup_form.is_valid():
                     user = signup_form.save()
                     login(request, user)
-                    return redirect('main/')
+                    return redirect('garage/')
                 else:
                     context = {'error': 'Invalid signup, please try again'}
                     return render(request, 'home.html', context)
@@ -36,14 +36,14 @@ def home(request):
     context = {'signup_form': signup_form, 'login_form': login_form}
     return render(request, 'home.html', context)
 
-def main(request):
+def garage(request):
 
     if Equipment.objects.filter(user_id=request.user.id):
         equipment = Equipment.objects.filter(user_id=request.user.id)
     else:
         equipment = ""
     context = {'equipment': equipment}
-    return render(request, 'main.html', context)
+    return render(request, 'garage.html', context)
 
 def profile(request):
     if request.method == 'POST':
@@ -92,7 +92,7 @@ def equipment_create(request):
             equipment = equipment_form.save(commit=False)
             equipment.user = request.user
             equipment.save()
-            return redirect('main')
+            return redirect('garage')
 
     
     equipment_form = EquipmentForm()
@@ -118,4 +118,4 @@ def equipment_edit(request, equipment_id):
 
 def equipment_delete(request, equipment_id):
     Equipment.objects.get(id=equipment_id).delete()
-    return redirect('main')
+    return redirect('garage')

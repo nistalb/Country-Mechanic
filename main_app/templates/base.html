@@ -184,7 +184,7 @@
             <div class="right menu">
                 
                 {% if user.is_authenticated %}
-                    <a class="ui item button" href="{% url 'main' %}">
+                    <a class="ui item button" href="{% url 'garage' %}">
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Garage</div>
                             <div class="visible content">
@@ -250,8 +250,8 @@
                 <h4 class="ui header">Navigate</h4>
                 <div class="ui link list">
                 {% if user.is_authenticated %}
-                    <a href="/profile" class="item">Main</a>
-                    <a href="/cities/1" class="item">Tools</a>
+                    <a href="/garage" class="item">Garage</a>
+                    <a href="/tools" class="item">Tools</a>
                     <a class="item" href="{% url 'logout' %}">Log Out</a>
                 {% else %}
                     <a href="/" class="item">Home</a>

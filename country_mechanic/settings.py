@@ -121,7 +121,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # where requests are redirected after login
-LOGIN_REDIRECT_URL = '/main/'
+LOGIN_REDIRECT_URL = '/garage/'
 
 # where requests are redirected for login when using the login_required() decorator
 LOGIN_URL = '/'
