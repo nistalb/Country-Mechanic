@@ -10,6 +10,7 @@
             {% for equipment in equipment %}
                 <div class="ui card">
                     <div class="content">
+                        <i id="{{equipment.id}}" class="right floated close icon delete_modal"></i>
                         <div class="header">
                             <a href="{% url 'equipment_show' equipment_id=equipment.id %}"> 
                                 <p>{{ equipment.make }}</p>
@@ -18,6 +19,21 @@
                         </div>
                     </div>
                 </div>
+
+                {% comment %} DELETE MODAL {% endcomment %}
+                <div id="modal-{{ equipment.id }}" class="ui modal delete">
+                    <i class="close icon"></i>
+                    <div class="header">
+                    Are you sure you want to delete: {{equipment.make}} {{equipment.model}}?
+                    </div>
+                    <div class="content">
+                        <a href="{% url 'equipment_delete' equipment_id=equipment.id %}" class="ui inverted button">
+                            Confirm Delete
+                        </a>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </div>
+                </div>
+
             {% endfor %}
         {% endif %}
 

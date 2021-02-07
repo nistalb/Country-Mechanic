@@ -65,6 +65,10 @@
             $(".login").modal({
                 closable: true
             });
+
+            $(".delete_modal").click(function () {
+                $("#modal-"+this.id).modal("show");
+            });
         });
     </script>
 

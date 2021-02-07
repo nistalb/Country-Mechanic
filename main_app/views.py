@@ -108,3 +108,7 @@ def equipment_show(request, equipment_id):
     equipment_id = Equipment.objects.get(id=equipment_id)
     context = {'equipment_all': equipment_all, 'equipment_id': equipment_id}
     return render(request, 'equipment/show.html', context)
+
+def equipment_delete(request, equipment_id):
+    Equipment.objects.get(id=equipment_id).delete()
+    return redirect('main')
