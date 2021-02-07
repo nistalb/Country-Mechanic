@@ -22,3 +22,4 @@ class TaskForm(ModelForm):
     class Meta:
         model = Task
         fields =('task_name', 'description', 'interval', 'duration', 'instructions', 'video')
+

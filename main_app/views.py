@@ -151,3 +151,12 @@ def task_delete(request, task_id):
     Task.objects.get(id=task_id).delete()
     # use next for redirect
     return redirect('garage')
+
+def create_maint_record(request, equipment_id, task_id):
+    equipment = Equipment.objects.get(id=equipment_id)
+    task = Task.objects.get(id=task_id)
+    mileage = equipment.mileage
+    hours = equipment.hours
+    maint_record = Maint_Record.objects.create(mileage=mileage, hours=hours, task=task, equipment=equipment)
+    maint_record.save()
+    return redirect('equipment_show', equipment_id=equipment_id)
