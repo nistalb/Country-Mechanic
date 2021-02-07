@@ -11,5 +11,6 @@ urlpatterns = [
     path('equipment/<int:equipment_id>/show', views.equipment_show, name='equipment_show'),
     path('equipment/<int:equipment_id>/edit', views.equipment_edit, name='equipment_edit'),
     path('eqiupment/<int:equipment_id>/delete', views.equipment_delete, name='equipment_delete'),
+    path('task/<int:equipment_id>/create', views.task_create, name='task_create'),
     
 ]

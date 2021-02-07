@@ -4,7 +4,7 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm, EquipmentForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record 
@@ -94,7 +94,6 @@ def equipment_create(request):
             equipment.save()
             return redirect('garage')
 
-    
     equipment_form = EquipmentForm()
     context = {'equipment_form': equipment_form}
     return render(request, 'equipment/create.html', context)
@@ -119,3 +118,17 @@ def equipment_edit(request, equipment_id):
 def equipment_delete(request, equipment_id):
     Equipment.objects.get(id=equipment_id).delete()
     return redirect('garage')
+
+def task_create(request, equipment_id):
+    equipment = Equipment.objects.get(id=equipment_id)
+    if request.method == 'POST':
+        task_form = TaskForm(request.POST)
+        if task_form.is_valid():
+            task = task_form.save(commit=False)
+            task.equipment = equipment
+            task.save()
+            return redirect('equipment_show', equipment_id=equipment_id)
+
+    task_form = TaskForm()
+    context = {'task_form': task_form}
+    return render(request, 'task/create.html', context)

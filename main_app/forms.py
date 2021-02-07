@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Profile, User, Equipment
+from .models import Profile, User, Equipment, Task
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -17,3 +17,8 @@ class EquipmentForm(ModelForm):
     class Meta:
         model = Equipment
         fields = ('model', 'make', 'mfg_year', 'description', 'mileage', 'hours', 'img_url', 'cost')
+
+class TaskForm(ModelForm):
+    class Meta:
+        model = Task
+        fields =('task_name', 'description', 'interval', 'duration', 'instructions', 'video')

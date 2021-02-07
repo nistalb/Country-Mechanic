@@ -7,6 +7,7 @@
         <p>{{equipment.model}}</p>
     </div>
     <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit Equipment</a>
+    <a href="{% url 'task_create' equipment_id=equipment.id %}">Create Task</a>
 </div>
 
 {% endblock %}
