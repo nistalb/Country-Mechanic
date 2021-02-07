@@ -100,14 +100,21 @@ def equipment_create(request):
     return render(request, 'equipment/create.html', context)
 
 def equipment_show(request, equipment_id):
-
-    if Equipment.objects.filter(user_id=request.user.id):
-        equipment_all = Equipment.objects.filter(user_id=request.user.id)
-    else:
-        equipment_all = ""
-    equipment_id = Equipment.objects.get(id=equipment_id)
-    context = {'equipment_all': equipment_all, 'equipment_id': equipment_id}
+    equipment = Equipment.objects.get(id=equipment_id)
+    context = {'equipment': equipment}
     return render(request, 'equipment/show.html', context)
+
+def equipment_edit(request, equipment_id):
+    equipment = Equipment.objects.get(id=equipment_id)
+    if request.method == 'POST':
+        equipment_form = EquipmentForm(request.POST, instance=equipment)
+        if equipment_form.is_valid():
+            equipment_form.save()
+            return redirect( 'equipment_show', equipment_id=equipment.id)
+
+    equipment_form = EquipmentForm()
+    context = {'equipment_form': equipment_form, 'equipment': equipment}
+    return render(request, 'equipment/edit.html', context)
 
 def equipment_delete(request, equipment_id):
     Equipment.objects.get(id=equipment_id).delete()

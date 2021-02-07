@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="container-box" class="ui center aligned stackable grid container">
+
+    <form action="{% url 'equipment_edit' equipment.id %}" method="POST">
+        {% csrf_token %}
+
+        <div class="ui equal width form">
+            <div class="fields">
+                <div class="field">
+                    <h3 class='ui center aligned header'>Make</h3>
+                    <input type="text" name="make" value="{{ equipment.make }}" >
+                </div>
+                <div class="field">
+                    <h3 class='ui center aligned header'>Model</h3>
+                    <input type="text" name="model" value="{{ equipment.model }}" >
+                </div>
+                <div class="field">
+                    <h3 class='ui center aligned header'>Year</h3>
+                    <input type="number" name="mfg_year" value="{{ equipment.mfg_year}}" >
+                </div>
+            </div>
+            
+            <div class="field">
+                <h3 class='ui center aligned header'>Description</h3>
+                <input type="text" name="description" value="{{ equipment.description }}" >
+            </div>
+
+            <div class="ui segment">
+                <div class="ui two column very relaxed grid">
+                    <div class="column">
+                        
+                            <div class="field">
+                                <h3 class='ui center aligned header'>Mileage</h3>
+                                <input type="number" name="mileage" value="{{ equipment.mileage }}" >
+                            </div>
+                        
+                    </div>
+                    <div class="middle aligned column">
+                        <div class="field">
+                            <h3 class='ui center aligned header'>Hours</h3>
+                            <input type="number" name="hours" value="{{ equipment.hours }}" >
+                         </div>
+                    </div>
+                </div>
+                <div class="ui vertical divider">
+                    Or
+                </div>
+            </div>
+
+
+            <div class="field">
+                <h3 class='ui center aligned header'>Cost </h3>
+                <input type="number" name="cost" value="{{ equipment.cost }}">
+            </div>
+            {% comment %} Add photo stuff here {% endcomment %}
+        </div>
+        {% if error %}
+        <div class="ui error message">
+            <div class="header">Action Forbidden</div>
+            <p>{{error}}</p>
+        </div>
+        {% endif %}
+
+        <input type="submit" class="ui button" value="Edit Equipment" />
+        <a href="{% url 'equipment_show' equipment.id %}" class="ui button">Cancel</a>
+
+    </form>
+</div>
+
+{% endblock %}

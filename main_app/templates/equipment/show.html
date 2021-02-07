@@ -2,28 +2,11 @@
 {% block content %}
 
 <div>
-    <aside id="main_aside">
-        <h3>Garage</h3>
-            {% for equipment in equipment_all %}
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">
-                            <a href="{% url 'equipment_show' equipment_id=equipment.id %}"> 
-                            <p>{{ equipment.make }}</p>
-                            <p>{{ equipment.model }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        
-        <a href="{% url 'equipment_create' %}" class="ui button">Create Equipment</a>
-    </aside>
-
     <div>
-        <p>{{equipment_id.make}}</p>
-        <p>{{equipment_id.model}}</p>
+        <p>{{equipment.make}}</p>
+        <p>{{equipment.model}}</p>
     </div>
-    
+    <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit Equipment</a>
 </div>
 
 {% endblock %}
