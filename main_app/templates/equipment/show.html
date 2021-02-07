@@ -6,6 +6,14 @@
         <p>{{equipment.make}}</p>
         <p>{{equipment.model}}</p>
     </div>
+    <div>
+        {% for task in task %}
+            <a href="{% url 'task_edit' task_id=task.id %}">
+                <p>{{ task.task_name}}</p>
+                <a href="{% url 'task_delete' task.id %}">Delete Task</a>
+            </a>
+        {% endfor %}
+    </div>
     <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit Equipment</a>
     <a href="{% url 'task_create' equipment_id=equipment.id %}">Create Task</a>
 </div>

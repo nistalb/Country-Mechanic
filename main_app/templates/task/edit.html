@@ -3,34 +3,34 @@
 
 <div id="container-box" class="ui center aligned stackable grid container">
 
-    <form action="{% url 'task_create' equipment_id=equipment_id %}" method="POST">
+    <form action="{% url 'task_edit' task.id %}" method="POST">
         {% csrf_token %}
 
         <div class="ui equal width form">
             <div class="field">
                 <h3 class='ui center aligned header'>Title</h3>
-                <input type="text" name="task_name" placeholder="task" >
+                <input type="text" name="task_name" value="{{ task.task_name }}" >
             </div>
             <div class="field">
                 <h3 class='ui center aligned header'>Description</h3>
-                <input type="text" name="description" placeholder="description" >
+                <input type="text" name="description" value="{{ task.description }}" >
             </div>
             <div class="field">
                 <h3 class='ui center aligned header'>Interval</h3>
-                <input type="number" name="interval" value=0 >
+                <input type="number" name="interval" value="{{ task.interval }}" >
             </div>
             <div class="field">
                 <h3 class='ui center aligned header'>Duration</h3>
-                <input type="number" name="duration" value=0 >
+                <input type="number" name="duration" value="{{ task.duration }}" >
             </div>
             <div class="field">
                 <h3 class='ui center aligned header'>Instructions </h3>
-                <input type="text" name="instructions" placeholder="instructions">
+                <input type="text" name="instructions" value="{{ task.instructions }}" >
             </div>
              {% comment %} NOTE Add video embed stuff here {% endcomment %}
             <div class="field">
                 <h3 class='ui center aligned header'>Video </h3>
-                <input type="text" name="video" placeholder="video">
+                <input type="text" name="video" value="{{ task.video }}">
             </div>
            
         </div>
@@ -41,8 +41,8 @@
         </div>
         {% endif %}
 
-        <input type="submit" class="ui button" value="Create Task" />
-        <a href="{% url 'equipment_show' equipment_id %}" class="ui button">Cancel</a>
+        <input type="submit" class="ui button" value="Edit Task" />
+        {% comment %} <a href="{% url 'equipment_show' equipment_id %}" class="ui button">Cancel</a> {% endcomment %}
 
     </form>
 </div>

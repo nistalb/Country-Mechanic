@@ -100,7 +100,8 @@ def equipment_create(request):
 
 def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
-    context = {'equipment': equipment}
+    task = Task.objects.filter(equipment_id=equipment_id)
+    context = {'equipment': equipment, 'task': task}
     return render(request, 'equipment/show.html', context)
 
 def equipment_edit(request, equipment_id):
@@ -130,5 +131,23 @@ def task_create(request, equipment_id):
             return redirect('equipment_show', equipment_id=equipment_id)
 
     task_form = TaskForm()
-    context = {'task_form': task_form}
+    context = {'task_form': task_form, 'equipment_id': equipment_id}
     return render(request, 'task/create.html', context)
+
+def task_edit(request, task_id):
+    task = Task.objects.get(id=task_id)
+    if request.method == 'POST':
+        task_form = TaskForm(request.POST, instance=task)
+        if task_form.is_valid():
+            task_form.save()
+            # use next for the redirect
+            return redirect( 'garage')
+
+    task_form = TaskForm()
+    context = {'task_form': task_form, 'task': task}
+    return render(request, 'task/edit.html', context)
+
+def task_delete(request, task_id):
+    Task.objects.get(id=task_id).delete()
+    # use next for redirect
+    return redirect('garage')
