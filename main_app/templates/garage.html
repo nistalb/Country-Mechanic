@@ -6,15 +6,14 @@
     {% if equipment == "" %}
         <p>You haven't added any equipment yet.  Hit the Create Equipment Button to get started</p>
     {% else %}
-        <div class="ui link cards">
+        <div id="garage_cards" class="ui link cards">
             {% for equipment in equipment %}
                 <div class="card">
                     <div class="content">
                         <i id="{{equipment.id}}" class="right floated close icon delete_modal"></i>
                         <div class="header">
                             <a href="{% url 'equipment_show' equipment_id=equipment.id %}"> 
-                                <p>{{ equipment.make }}</p>
-                                <p>{{ equipment.model }}</p>
+                                <p>{{ equipment.make }} {{ equipment.model }}</p>
                             </a> 
                         </div>
                     </div>

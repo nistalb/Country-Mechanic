@@ -50,6 +50,7 @@
 
     <script>
         $(document).ready(function () {
+            
             $("#signup_modal").click(function () {
                 $(".signup").modal("show");
             });
@@ -72,6 +73,24 @@
 
             $(".delete_equipment").modal({
                 closable: true
+            });
+
+            
+            $("#tab_content div").hide(); 
+            $("#tabs li:first").attr("id","current"); 
+            $("#tab_content div:first").fadeIn(); 
+    
+            $('#tabs a').click(function(e) {
+                e.preventDefault();
+                if ($(this).closest("li").attr("id") == "current"){ 
+                    return       
+                }
+                else{             
+                    $("#tab_content div").hide(); 
+                    $("#tabs li").attr("id",""); 
+                    $(this).parent().attr("id","current"); 
+                    $('#' + $(this).attr('name')).fadeIn(); 
+                }
             });
         });
     </script>

@@ -1,23 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div>
-    <div>
-        <p>{{equipment.make}}</p>
-        <p>{{equipment.model}}</p>
-    </div>
-    <div>
-        {% for task in task %}
-            <a href="{% url 'task_edit' task_id=task.id %}">
-                <p>{{ task.task_name}}</p>
-                <a href="{% url 'task_delete' task.id %}">Delete Task</a>
-                <a href="{% url 'create_maint_record' equipment_id=equipment.id task_id=task.id %}">Create Maintenance Record</a>
-            </a>
-        {% endfor %}
+<div id="equipment_show">
+    <section>
+        <h1>{{equipment.make}} {{equipment.model}}</h1>
+    </section>
+    
+    <ul id="tabs">
+        <li><a href="#" name="tab1">One</a></li>
+        <li><a href="#" name="tab2">Two</a></li>
+        <li><a href="#" name="tab3">Three</a></li>
+        <li><a href="#" name="tab4">Four</a></li>    
+    </ul>   
+    
+    <div id="tab_content">
+        <div id="tab1">
+            {% for task in task %}
+                <a href="{% url 'task_edit' task_id=task.id %}">
+                    <p>{{ task.task_name}}</p>
+                    <a href="{% url 'task_delete' task.id %}">Delete Task</a>
+                    <a href="{% url 'create_maint_record' equipment_id=equipment.id task_id=task.id %}">Create Maintenance Record</a>
+                </a>
+            {% endfor %}
+        </div>
+        <div id="tab2">
+            I'm div 2
+        </div>
+        <div id="tab3">
+            I'm div 3
+        </div>
     </div>
     <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit Equipment</a>
     <a href="{% url 'task_create' equipment_id=equipment.id %}">Create Task</a>
-    
+   
 </div>
 
 {% endblock %}
