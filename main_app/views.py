@@ -104,6 +104,7 @@ def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     task = Task.objects.filter(equipment_id=equipment_id)
     maintenance = Maint_Record.objects.filter(equipment_id=equipment_id)
+   
     context = {'equipment': equipment, 'task': task, 'maintenance': maintenance}
     return render(request, 'equipment/show.html', context)
 
@@ -133,14 +134,15 @@ def task_create(request, equipment_id):
             task.equipment = equipment
             task.save()
             return redirect('equipment_show', equipment_id=equipment_id)
-
+    
     task_form = TaskForm()
     context = {'task_form': task_form, 'equipment_id': equipment_id}
     return render(request, 'task/create.html', context)
 
 def task_show(request, task_id):
     task = Task.objects.get(id=task_id)
-    context = {'task': task}
+    available_tools = Tool.objects.exclude(id__in = task.tool.all().values_list('id'))
+    context = {'task': task, 'available_tools': available_tools}
     return render(request, 'task/show.html', context)
 
 def task_edit(request, task_id):
@@ -179,7 +181,11 @@ def tool_create(request):
             tool.user = request.user
             tool.save()
             return redirect('garage')
-
+            # figure out tool redirect after create
     tool_form = ToolForm()
     context = {'tool_form': tool_form}
     return render(request, 'tool/create.html', context)
+
+def tool_assoc(request, task_id, tool_id):
+    Task.objects.get(id=task_id).tool.add(tool_id)
+    return redirect('task_show', task_id=task_id)

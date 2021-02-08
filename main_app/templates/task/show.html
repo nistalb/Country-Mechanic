@@ -29,8 +29,44 @@
                 <h3 class='ui center aligned header'>Video </h3>
                 <input type="text" name="video" value="{{ task.video }}">
             </div>
-           
         </div>
+
+        {% if task.tool.count %}
+
+            {% for tool in task.tool.all %}
+
+                <div class="card">
+                    <div class="content">
+                        <span class="card-title">
+                         {{ tool.tool_name }}
+                        </span>
+                    </div>
+                {% comment %} <div class="action">
+                    <a href="{% url 'deassoc_toy' cat.id toy.id %}" class="btn red">Remove</a>
+                </div> {% endcomment %}
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+            <h5>No Tools :(</h5>
+        {% endif %}
+        
+        {% for tool in available_tools %}
+
+        <div class="card">
+          <div class="content">
+            <p>
+                {{ tool.tool_name }}
+            </p>
+          </div>
+          <div class="card-action">
+            <a href="{% url 'tool_assoc' task.id tool.id %}" class="btn blue">Add</a>
+          </div>
+
+        </div>
+
+      {% endfor %}
               
     <a href="{% url 'create_maint_record' equipment_id=task.equipment_id task_id=task.id %}">Create Maintenance Record</a>
     <a href="{% url 'task_edit' task_id=task.id %}">Edit Task</a>

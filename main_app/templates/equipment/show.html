@@ -67,9 +67,27 @@
                     </section>
                 </section>
             {% endfor %}
+            </section>
         </div>
         <div id="tab3">
-            <a href="{% url 'tool_create' %}">Create Tool</a>
+            <section id="task_cards" class="ui link cards">
+            {% for maintenance in maintenance %}
+                <section class="card">
+                    <section class="content">
+                        <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
+                        <section class="header">
+                            <p> {{ maintenance.task }} </p>
+                        </section>
+                        <section class="content">
+                            <p> {{ maintenance.date }} </p>
+                            <p> {{ maintenance.hours }} </p> 
+                            <p> {{ maintenance.mileage }} </p>
+                        </section>
+                    </section>
+                </section>
+            {% endfor %}
+            </section>
+            
         </div>
         <div id="tab3">
             Consumables

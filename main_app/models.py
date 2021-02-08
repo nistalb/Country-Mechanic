@@ -42,6 +42,25 @@ class Equipment(models.Model):
     def __str__(self):
         return f"{self.make} {self.model}"
 
+class Tool(models.Model):
+    tool_name = models.CharField(max_length=100, blank=False)
+    description = models.TextField(blank=True)
+    img_url = models.URLField(max_length=200, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.tool_name}"
+
+class Consumables(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    description = models.TextField(blank=True)
+    part_number = models.CharField(max_length=100, blank=True)
+    source = models.CharField(max_length=100, blank=True)
+    cost = models.PositiveIntegerField(blank=True, default=0) 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name}"
 
 class Task(models.Model):
     task_name = models.CharField(max_length=100, blank=False)
@@ -51,33 +70,11 @@ class Task(models.Model):
     instructions = models.TextField(blank=True)
     video = models.URLField(max_length=200, blank=True)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
+    tool = models.ManyToManyField(Tool)
+    consumable = models.ManyToManyField(Consumables)
 
     def __str__(self):
         return f"{self.task_name}"
-
-class Tool(models.Model):
-    tool_name = models.CharField(max_length=100, blank=False)
-    description = models.TextField(blank=True)
-    img_url = models.URLField(max_length=200, blank=True)
-    task = models.ManyToManyField(Task)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.tool_name}"
-
-
-class Consumables(models.Model):
-    name = models.CharField(max_length=100, blank=False)
-    description = models.TextField(blank=True)
-    part_number = models.CharField(max_length=100, blank=True)
-    source = models.CharField(max_length=100, blank=True)
-    cost = models.PositiveIntegerField(blank=True, default=0) 
-    task = models.ManyToManyField(Task)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.name}"
-
 
 class Maint_Record(models.Model):
     date = models.DateField(auto_now=True)
