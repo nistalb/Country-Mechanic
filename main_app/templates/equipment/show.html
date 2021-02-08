@@ -7,27 +7,72 @@
     </section>
     
     <ul id="tabs">
-        <li><a href="#" name="tab1">One</a></li>
-        <li><a href="#" name="tab2">Two</a></li>
-        <li><a href="#" name="tab3">Three</a></li>
-        <li><a href="#" name="tab4">Four</a></li>    
+        <li><a href="#" name="tab1">Tasks</a></li>
+        <li><a href="#" name="tab2">Maintenance Record</a></li>
+        <li><a href="#" name="tab3">Tools</a></li>
+        <li><a href="#" name="tab4">Consumables</a></li>    
     </ul>   
     
     <div id="tab_content">
         <div id="tab1">
+            <section id="task_cards" class="ui link cards">
             {% for task in task %}
-                <a href="{% url 'task_edit' task_id=task.id %}">
-                    <p>{{ task.task_name}}</p>
-                    <a href="{% url 'task_delete' task.id %}">Delete Task</a>
-                    <a href="{% url 'create_maint_record' equipment_id=equipment.id task_id=task.id %}">Create Maintenance Record</a>
-                </a>
+                <section class="card">
+                    <section class="content">
+                        <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
+                        <section class="header">
+                            <a href="{% url 'task_show' task_id=task.id %}"> 
+                                <p> {{ task.task_name }} </p>
+                            </a> 
+                        </section>
+                    </section>
+                </section>
+            
+                <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
+                    <i class="close icon"></i>
+                    <div class="ui equal width">
+                        <div class="header">
+                            <h1>DELETE</h1> 
+                        </div>
+                        <div class="content">
+                            <p>Are you sure you want to delete your {{task.task_name}}?</p> 
+                        </div>
+                        <div class="actions">
+                            <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
+                                Confirm Delete
+                            </a>
+                            <div class="ui black deny button">Cancel</div>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </div>
+                    </div>
+                </div>
+            {% endfor %} 
+            </section>
+        </div>
+
+        <div id="tab2">
+             <section id="task_cards" class="ui link cards">
+            {% for maintenance in maintenance %}
+                <section class="card">
+                    <section class="content">
+                        <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
+                        <section class="header">
+                            <p> {{ maintenance.task }} </p>
+                        </section>
+                        <section class="content">
+                            <p> {{ maintenance.date }} </p>
+                            <p> {{ maintenance.hours }} </p> 
+                            <p> {{ maintenance.mileage }} </p>
+                        </section>
+                    </section>
+                </section>
             {% endfor %}
         </div>
-        <div id="tab2">
-            I'm div 2
+        <div id="tab3">
+            <a href="{% url 'tool_create' %}">Create Tool</a>
         </div>
         <div id="tab3">
-            I'm div 3
+            Consumables
         </div>
     </div>
     <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit Equipment</a>

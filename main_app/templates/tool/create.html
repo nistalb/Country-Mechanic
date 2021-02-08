@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="container-box" class="ui center aligned stackable grid container">
+
+    <form action="{% url 'tool_create' %}" method="POST">
+        {% csrf_token %}
+
+        <div class="ui equal width form">
+            
+            <div class="field">
+                <h3 class='ui center aligned header'>Tool</h3>
+                <input type="text" name="tool_name" placeholder="Wrench" >
+            </div>
+            <div class="field">
+                <h3 class='ui center aligned header'>Description</h3>
+                <input type="text" name="description" placeholder="Description" >
+            </div>
+
+            <div class="field">
+                <h3 class='ui center aligned header'>Image </h3>
+                <input type="text" name="img_url" placeholder="URL">
+                 {% comment %} Add photo stuff here {% endcomment %}
+            </div>
+           
+        </div>
+        {% if error %}
+        <div class="ui error message">
+            <div class="header">Action Forbidden</div>
+            <p>{{error}}</p>
+        </div>
+        {% endif %}
+
+        <input type="submit" class="ui button" value="Create Tool" />
+        <a href="{% url 'garage' %}" class="ui button">Cancel</a>
+
+    </form>
+</div>
+
+{% endblock %}

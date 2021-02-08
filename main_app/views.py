@@ -4,12 +4,12 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm, ToolForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record 
 
-# Create your views here.
+# ==== Hpme ====
 def home(request):
     if request.method == 'POST':
         signup_form = NewUserForm(request.POST)
@@ -36,6 +36,7 @@ def home(request):
     context = {'signup_form': signup_form, 'login_form': login_form}
     return render(request, 'home.html', context)
 
+# === Garage ====
 def garage(request):
     if Equipment.objects.filter(user_id=request.user.id):
         equipment = Equipment.objects.filter(user_id=request.user.id)
@@ -44,6 +45,7 @@ def garage(request):
     context = {'equipment': equipment}
     return render(request, 'garage.html', context)
 
+# === Profile ===
 def profile(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST)
@@ -84,6 +86,7 @@ def profile_edit(request):
     context = {'profile_form': profile_form, 'user_form': user_form, 'user': user, 'profile': profile}
     return render(request, 'profile/edit.html', context)
 
+# === Equipment ===
 def equipment_create(request):
     if request.method == 'POST':
         equipment_form = EquipmentForm(request.POST)
@@ -100,7 +103,8 @@ def equipment_create(request):
 def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     task = Task.objects.filter(equipment_id=equipment_id)
-    context = {'equipment': equipment, 'task': task}
+    maintenance = Maint_Record.objects.filter(equipment_id=equipment_id)
+    context = {'equipment': equipment, 'task': task, 'maintenance': maintenance}
     return render(request, 'equipment/show.html', context)
 
 def equipment_edit(request, equipment_id):
@@ -119,6 +123,7 @@ def equipment_delete(request, equipment_id):
     Equipment.objects.get(id=equipment_id).delete()
     return redirect('garage')
 
+# === Task ====
 def task_create(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     if request.method == 'POST':
@@ -133,24 +138,29 @@ def task_create(request, equipment_id):
     context = {'task_form': task_form, 'equipment_id': equipment_id}
     return render(request, 'task/create.html', context)
 
+def task_show(request, task_id):
+    task = Task.objects.get(id=task_id)
+    context = {'task': task}
+    return render(request, 'task/show.html', context)
+
 def task_edit(request, task_id):
     task = Task.objects.get(id=task_id)
     if request.method == 'POST':
         task_form = TaskForm(request.POST, instance=task)
         if task_form.is_valid():
             task_form.save()
-            # use next for the redirect
-            return redirect( 'garage')
+            return redirect('task_show', task_id)
 
     task_form = TaskForm()
     context = {'task_form': task_form, 'task': task}
     return render(request, 'task/edit.html', context)
 
 def task_delete(request, task_id):
-    Task.objects.get(id=task_id).delete()
-    # use next for redirect
-    return redirect('garage')
+    task = Task.objects.get(id=task_id)
+    task.delete()
+    return redirect('equipment_show', equipment_id=task.equipment_id)
 
+# === Maint Record ===
 def create_maint_record(request, equipment_id, task_id):
     equipment = Equipment.objects.get(id=equipment_id)
     task = Task.objects.get(id=task_id)
@@ -159,3 +169,17 @@ def create_maint_record(request, equipment_id, task_id):
     maint_record = Maint_Record.objects.create(mileage=mileage, hours=hours, task=task, equipment=equipment)
     maint_record.save()
     return redirect('equipment_show', equipment_id=equipment_id)
+
+# === Tools ===
+def tool_create(request):
+    if request.method == 'POST':
+        tool_form = ToolForm(request.POST)
+        if tool_form.is_valid():
+            tool = tool_form.save(commit=False)
+            tool.user = request.user
+            tool.save()
+            return redirect('garage')
+
+    tool_form = ToolForm()
+    context = {'tool_form': tool_form}
+    return render(request, 'tool/create.html', context)

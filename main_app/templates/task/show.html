@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="container-box" class="ui center aligned stackable grid container">
+
+        <div class="ui equal width form">
+            <div class="field">
+                <h3 class='ui center aligned header'>Title</h3>
+                <input type="text" name="task_name" value="{{ task.task_name }}" >
+            </div>
+            <div class="field">
+                <h3 class='ui center aligned header'>Description</h3>
+                <input type="text" name="description" value="{{ task.description }}" >
+            </div>
+            <div class="field">
+                <h3 class='ui center aligned header'>Interval</h3>
+                <input type="number" name="interval" value="{{ task.interval }}" >
+            </div>
+            <div class="field">
+                <h3 class='ui center aligned header'>Duration</h3>
+                <input type="number" name="duration" value="{{ task.duration }}" >
+            </div>
+            <div class="field">
+                <h3 class='ui center aligned header'>Instructions </h3>
+                <input type="text" name="instructions" value="{{ task.instructions }}" >
+            </div>
+             {% comment %} NOTE Add video embed stuff here {% endcomment %}
+            <div class="field">
+                <h3 class='ui center aligned header'>Video </h3>
+                <input type="text" name="video" value="{{ task.video }}">
+            </div>
+           
+        </div>
+              
+    <a href="{% url 'create_maint_record' equipment_id=task.equipment_id task_id=task.id %}">Create Maintenance Record</a>
+    <a href="{% url 'task_edit' task_id=task.id %}">Edit Task</a>
+    <a href="{% url 'equipment_show' equipment_id=task.equipment_id %}">Return to Equipment Page</a>
+</div>
+
+
+{% endblock %}

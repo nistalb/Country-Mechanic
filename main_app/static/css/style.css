@@ -119,7 +119,7 @@ header > div {
     z-index: 2;
 }
 
-.delete_modal:hover {
+.delete_modal_equipment:hover {
     color: red;
     cursor: pointer;
     transform: scale(1.3);

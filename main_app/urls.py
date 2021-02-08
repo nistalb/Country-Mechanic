@@ -12,8 +12,10 @@ urlpatterns = [
     path('equipment/<int:equipment_id>/edit', views.equipment_edit, name='equipment_edit'),
     path('eqiupment/<int:equipment_id>/delete', views.equipment_delete, name='equipment_delete'),
     path('task/<int:equipment_id>/create', views.task_create, name='task_create'),
+    path('task/<int:task_id>/show', views.task_show, name='task_show'),
     path('task/<int:task_id>/edit', views.task_edit, name='task_edit'),
     path('task/<int:task_id>/delete', views.task_delete, name='task_delete'),
     path('record/<int:equipment_id>/<int:task_id>', views.create_maint_record, name='create_maint_record'),
+    path('tool/create', views.tool_create, name='tool_create'),
     
 ]

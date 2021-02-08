@@ -60,6 +60,7 @@ class Tool(models.Model):
     description = models.TextField(blank=True)
     img_url = models.URLField(max_length=200, blank=True)
     task = models.ManyToManyField(Task)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.tool_name}"
@@ -72,6 +73,7 @@ class Consumables(models.Model):
     source = models.CharField(max_length=100, blank=True)
     cost = models.PositiveIntegerField(blank=True, default=0) 
     task = models.ManyToManyField(Task)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name}"
@@ -83,6 +85,9 @@ class Maint_Record(models.Model):
     hours = models.PositiveIntegerField(blank=True, default=0) 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-date']
 
     def __str__(self):
         return f"{self.date}"

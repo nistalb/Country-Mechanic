@@ -10,7 +10,7 @@
             {% for equipment in equipment %}
                 <div class="card">
                     <div class="content">
-                        <i id="{{equipment.id}}" class="right floated close icon delete_modal"></i>
+                        <i id="{{equipment.id}}" class="right floated close icon delete_modal_equipment"></i>
                         <div class="header">
                             <a href="{% url 'equipment_show' equipment_id=equipment.id %}"> 
                                 <p>{{ equipment.make }} {{ equipment.model }}</p>

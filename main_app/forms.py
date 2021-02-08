@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Profile, User, Equipment, Task
+from .models import Profile, User, Equipment, Task, Tool, Consumables
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -23,3 +23,12 @@ class TaskForm(ModelForm):
         model = Task
         fields =('task_name', 'description', 'interval', 'duration', 'instructions', 'video')
 
+class ToolForm(ModelForm):
+    class Meta:
+        model = Tool
+        fields = ('tool_name', 'description', 'img_url')
+
+class ConsumableForm(ModelForm):
+    class Meta:
+        model = Consumables
+        fields = ('name', 'description', 'part_number', 'source', 'cost')

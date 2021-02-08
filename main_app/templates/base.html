@@ -67,11 +67,19 @@
                 closable: true
             });
 
-            $(".delete_modal").click(function () {
+            $(".delete_modal_equipment").click(function () {
                 $("#modal-"+this.id).modal("show");
             });
 
             $(".delete_equipment").modal({
+                closable: true
+            });
+
+            $(".delete_modal_task").click(function () {
+                $("#task_modal-"+this.id).modal("show");
+            });
+
+            $(".delete_task").modal({
                 closable: true
             });
 
