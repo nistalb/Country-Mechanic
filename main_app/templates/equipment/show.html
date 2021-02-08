@@ -71,21 +71,21 @@
         </div>
         <div id="tab3">
             <section id="task_cards" class="ui link cards">
-            {% for maintenance in maintenance %}
+            
+            {% comment %} {% for tool in task.tool.all() %}
                 <section class="card">
                     <section class="content">
-                        <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
+                        <i id="{{tool.id}}" class="right floated close icon delete_modal_task"></i>
                         <section class="header">
-                            <p> {{ maintenance.task }} </p>
+                            <p> {{ tool.tool_name }} </p>
                         </section>
                         <section class="content">
-                            <p> {{ maintenance.date }} </p>
-                            <p> {{ maintenance.hours }} </p> 
-                            <p> {{ maintenance.mileage }} </p>
+                            <p> {{ tool.description }} </p>
+                            
                         </section>
                     </section>
                 </section>
-            {% endfor %}
+            {% endfor %}  {% endcomment %}
             </section>
             
         </div>

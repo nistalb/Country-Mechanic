@@ -103,8 +103,10 @@ def equipment_create(request):
 def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     task = Task.objects.filter(equipment_id=equipment_id)
+    print(task)
     maintenance = Maint_Record.objects.filter(equipment_id=equipment_id)
-   
+    tool = Tool.objects.all().filter
+    print(tool)
     context = {'equipment': equipment, 'task': task, 'maintenance': maintenance}
     return render(request, 'equipment/show.html', context)
 
@@ -188,4 +190,8 @@ def tool_create(request):
 
 def tool_assoc(request, task_id, tool_id):
     Task.objects.get(id=task_id).tool.add(tool_id)
+    return redirect('task_show', task_id=task_id)
+
+def tool_deassoc(request, task_id, tool_id):
+    Task.objects.get(id=task_id).tool.remove(tool_id)
     return redirect('task_show', task_id=task_id)

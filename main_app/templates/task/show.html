@@ -41,9 +41,9 @@
                          {{ tool.tool_name }}
                         </span>
                     </div>
-                {% comment %} <div class="action">
-                    <a href="{% url 'deassoc_toy' cat.id toy.id %}" class="btn red">Remove</a>
-                </div> {% endcomment %}
+                <div class="actions">
+                    <a href="{% url 'tool_deassoc' task.id tool.id %}" class="btn red">Remove Tool</a>
+                </div> 
                 </div>
 
             {% endfor %}
@@ -60,7 +60,7 @@
                 {{ tool.tool_name }}
             </p>
           </div>
-          <div class="card-action">
+          <div class="actions">
             <a href="{% url 'tool_assoc' task.id tool.id %}" class="btn blue">Add</a>
           </div>
 
