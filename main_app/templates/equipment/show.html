@@ -68,7 +68,16 @@
                 </div>
             {% endfor %} 
             </section>
-            <a class="ui item button" href="{% url 'task_create' equipment_id=equipment.id %}">Create Task</a>
+            <section id='equipment_create_task'>
+                 <a class="ui item button" href="{% url 'task_create' equipment_id=equipment.id %}">
+                    <section class="ui vertical animated button" tabindex="0">
+                        <section class="hidden content">Add Task</section>
+                        <section class="visible content">
+                            <i class="plus circle icon"></i>
+                        </section>
+                    </section>
+                </a>
+            </section>
         </div>
 
         <div id="tab2">

@@ -43,7 +43,14 @@
         </div>
     {% endif %}
 
-    <a href="{% url 'equipment_create' %}" id="garage_create_button" class="ui button">Create Equipment</a>
+     <a id="garage_create_button" href="{% url 'equipment_create' %}">
+            <div class="ui vertical animated button" tabindex="0">
+            <div class="hidden content">Add Equipment</div>
+            <div class="visible content">
+                <i class="plus circle icon"></i>
+            </div>
+        </div>
+    </a>
 </div>
 
 {% endblock %}
