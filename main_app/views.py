@@ -9,7 +9,16 @@ from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm, ToolForm
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record 
 
-# ==== Hpme ====
+# AWS Imports
+import boto3
+import uuid
+
+# AWS Constants
+S3_BASE_URL = 'https://s3-us-west-2.amazonaws.com/'
+BUCKET = 'country-mechanic'
+
+
+# ==== Home ====
 def home(request):
     if request.method == 'POST':
         signup_form = NewUserForm(request.POST)
@@ -176,15 +185,31 @@ def create_maint_record(request, equipment_id, task_id):
 # === Tools ===
 def tool_create(request):
     nextvalue = request.GET.get('next')
-    print(nextvalue)
+    photo_file = request.FILES.get('photo-file', None) #photo-file is the "name" attribute on the <input type="file">
     if request.method == 'POST':
         tool_form = ToolForm(request.POST)
         if tool_form.is_valid():
             tool = tool_form.save(commit=False)
             tool.user = request.user
-            tool.save()
+
+            if photo_file:
+                s3 = boto3.client('s3')
+                # need a unique "key" for S3 / needs image file extension too
+                key = uuid.uuid4().hex[:6] + \
+                    photo_file.name[photo_file.name.rfind('.'):]
+                try:
+                    s3.upload_fileobj(photo_file, BUCKET, key)
+                    # build the full url string
+                    url = f"{S3_BASE_URL}{BUCKET}/{key}"
+
+                    tool.img_url = url
+                    tool.save()
+                # just in case something goes wrong
+                except:
+                    print('An error occurred uploading file to S3')
+            else:
+                tool.save()
             return redirect(nextvalue)
-            # figure out tool redirect after create
 
     tool_form = ToolForm()
     context = {'tool_form': tool_form, 'next': nextvalue}
@@ -197,3 +222,4 @@ def tool_assoc(request, task_id, tool_id):
 def tool_deassoc(request, task_id, tool_id):
     Task.objects.get(id=task_id).tool.remove(tool_id)
     return redirect('task_show', task_id=task_id)
+

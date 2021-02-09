@@ -36,14 +36,19 @@
             {% for tool in task.tool.all %}
 
                 <div class="card">
+                    
                     <div class="content">
-                        <span class="card-title">
-                         {{ tool.tool_name }}
-                        </span>
+                        <img class="right floated mini ui image" src="{{ tool.img_url }}">
+                        <div class="header">
+                            {{ tool.tool_name }}
+                        </div>
+                        <div class="description">
+                            {{ tool.description }}
+                        </div>
                     </div>
-                <div class="actions">
-                    <a href="{% url 'tool_deassoc' task.id tool.id %}" class="btn red">Remove Tool</a>
-                </div> 
+                    <div class="actions">
+                        <a href="{% url 'tool_deassoc' task.id tool.id %}" class="btn red">Remove Tool</a>
+                    </div> 
                 </div>
 
             {% endfor %}
