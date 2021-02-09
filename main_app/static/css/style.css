@@ -128,6 +128,11 @@ header > div {
 /* Equipment Show Page */
 #equipment_show {
     text-align: center;
+   
+}
+
+#equipment_show_header {
+    margin-bottom: 15px;
 }
 
 #tabs{

@@ -2,7 +2,7 @@
 {% block content %}
 
 <div id="equipment_show">
-    <div class="ui internally celled grid">
+    <div id="equipment_show_header" class="ui internally celled grid">
         <div class="row">
             <div class="four wide column">
                 <img>
@@ -15,6 +15,7 @@
                 <p>{{equipment.mfg_year}}</p>
                 <p>{{equipment.hours}}</p>
                 <p>{{equipment.mileage}}</p>
+                <a class="ui item button" href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit Equipment</a>
             </div> 
         </div>
     </div>
@@ -61,6 +62,7 @@
                 </div>
             {% endfor %} 
             </section>
+            <a class="ui item button" href="{% url 'task_create' equipment_id=equipment.id %}">Create Task</a>
         </div>
 
         <div id="tab2">
@@ -105,10 +107,7 @@
         <div id="tab4">
             Consumables
         </div>
-    </div>
-    <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit Equipment</a>
-    <a href="{% url 'task_create' equipment_id=equipment.id %}">Create Task</a>
-   
+    </div>   
 </div>
 
 {% endblock %}
