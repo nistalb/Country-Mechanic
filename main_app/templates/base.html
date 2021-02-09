@@ -99,6 +99,14 @@
                 closable: true
             });
 
+             $(".delete_modal_profile").click(function () {
+                $("#profile_modal").modal("show");
+            });
+
+            $(".delete_profile").modal({
+                closable: true
+            });
+
             
             $("#tab_content div").hide(); 
             $("#tabs li:first").attr("id","current"); 

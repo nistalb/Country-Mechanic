@@ -6,7 +6,6 @@
         <h3 class="ui center aligned header">{{ user.first_name}} {{user.last_name}}</h3>
         <p>Username: {{user.username}}</p>
         <p>Email: {{ user.email }}</p>
-        <p>Password: for security reasons we do not show your password here.</p>
         
         {% if profile == "" %}
             <p>Location: </p>
@@ -29,9 +28,30 @@
         {% else %}
             <div id="form_buttons">
                 <a href="{% url 'profile_edit' %}" class="ui button">Edit Profile</a>
+                <a href="#" class="ui button delete_modal_profile">Delete Account</a>
             </div>
         {% endif %}
     </section>
+
+     {% comment %} Delete Modal {% endcomment %}
+                <div id="profile_modal" class="ui modal delete_profile">
+                    <i class="close icon"></i>
+                    <div class="ui equal width">
+                        <div class="header">
+                            <h1>DELETE</h1> 
+                        </div>
+                        <div class="content">
+                            <p>Are you sure you want to delete your Account?</p> 
+                        </div>
+                        <div class="actions">
+                            <a href="{% url 'profile_delete' %}" class="ui button">
+                                Confirm Delete
+                            </a>
+                            <div class="ui black deny button">Cancel</div>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </div>
+                    </div>
+                </div>
 </div>
 
 {% endblock %}
