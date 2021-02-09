@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div id="equipment_show">
-    <div id="equipment_show_header" class="ui internally celled grid">
-        <div class="row">
-            <div class="four wide column">
-                <img>
-                <p>{{equipment.img_url}}</p>
+<div >
+    <div id="equipment_show" class="ui items">
+        <div class="item">
+            <div id="equipment_show_img" class="image">
+                <img src='/static/resources/car-repair.webp'>
             </div>
-            <div class="twelve wide column">
-                <h1>{{equipment.make}} {{equipment.model}}</h1>
-                <p>{{equipment.description}}</p>
-                <p>{{equipment.cost}}</p>
-                <p>{{equipment.mfg_year}}</p>
-                <p>{{equipment.hours}}</p>
-                <p>{{equipment.mileage}}</p>
-                <a class="ui item button" href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit Equipment</a>
-            </div> 
+            <div class="content">
+                <a class="header">{{equipment.make}} {{equipment.model}}</a>
+                <div class="meta">
+                    <span>Description</span>
+                </div>
+                <div class="description">
+                    <p>{{equipment.description}}</p>
+                </div>
+                <div class="extra">
+                    <span>Mfg Date: {{equipment.mfg_year}}</span> 
+                    <span>Cost: ${{equipment.cost}}</span>
+                    <span>Hours: {{equipment.hours}}</span>
+                    <span>Mileage: {{equipment.mileage}}</span>
+                    <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit</a>
+                </div>
+            </div>
         </div>
     </div>
 

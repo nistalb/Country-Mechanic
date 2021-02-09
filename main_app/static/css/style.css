@@ -127,12 +127,12 @@ header > div {
 
 /* Equipment Show Page */
 #equipment_show {
-    text-align: center;
-   
-}
+    width: 90vw;
+    margin: 0 0 20px 50px ;
+} 
 
-#equipment_show_header {
-    margin-bottom: 15px;
+#equipment_show_img {
+    width: 250px;
 }
 
 #tabs{
@@ -225,7 +225,7 @@ header > div {
   {
       background: #fff;
       padding: 2em;
-      height: 220px;
+      height: 50vh;
       position: relative;
       z-index: 2;	
       -moz-border-radius: 0 5px 5px 5px;
