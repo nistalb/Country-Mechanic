@@ -4,7 +4,7 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm, ToolForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm, ToolForm, ConsumableForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record 
@@ -241,7 +241,7 @@ def tool_create(request):
     context = {'tool_form': tool_form}
     return render(request, 'tool/create.html', context)
 
-def tool_delete(requiest, tool_id):
+def tool_delete(request, tool_id):
     tool = Tool.objects.get(id=tool_id)
     tool.delete()
     return redirect('tool_index')
@@ -254,3 +254,29 @@ def tool_deassoc(request, task_id, tool_id):
     Task.objects.get(id=task_id).tool.remove(tool_id)
     return redirect('task_show', task_id=task_id)
 
+# === Consumables ===
+def consumable_index(request):
+    if Consumables.objects.filter(user_id=request.user.id):
+        consumables = Consumables.objects.filter(user_id=request.user.id)
+    else:
+        consumables = ""
+    context = {'consumables': consumables}
+    return render(request, 'consumables/index.html', context)
+
+def consumable_create(request):
+    if request.method == 'POST':
+        consumable_form = ConsumableForm(request.POST)
+        if consumable_form.is_valid():
+            consumable = consumable_form.save(commit=False)
+            consumable.user = request.user
+            consumable.save()
+            return redirect('consumable_index')
+
+    consumable_form = ConsumableForm()
+    context = {'consumable_form': consumable_form}
+    return render(request, 'consumables/create.html', context)
+
+def consumable_delete(request, consumable_id):
+    consumable = Consumables.objects.get(id=consumable_id)
+    consumable.delete()
+    return redirect('consumable_index')

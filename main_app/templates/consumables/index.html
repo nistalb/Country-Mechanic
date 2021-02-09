@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="consumable">
+    <h3>Consumables</h3>
+    {% if tools == "" %}
+        <p>You haven't added any consumables yet.  Hit the Add Consumables Button to get started</p>
+    {% else %}
+        <div id="consumable_cards" class="ui cards">
+            {% for consumable in consumables %}
+                <div class="card">
+                    <div class="content">
+                        <i id="{{consumable.id}}" class="right floated close icon delete_modal_consumable"></i>
+                        <div class="header">
+                            <p>{{ consumable.name }}</p>
+                        </div>
+                        <div class="content">
+                            <p> {{consumable.description}} </p>
+                            <p> {{consumable.part_number}} </p>
+                            <p> {{consumable.source}} </p>
+                            <p> {{consumable.cost}} </p>
+                        </div>
+                    </div>
+                </div>
+
+                {% comment %} DELETE MODAL {% endcomment %}
+                <div id="consumable_modal-{{ consumable.id }}" class="ui modal delete_consumable">
+                    <i class="close icon"></i>
+                    <div class="ui equal width">
+                        <div class="header">
+                            <h1>DELETE</h1> 
+                        </div>
+                        <div class="content">
+                            <p>Are you sure you want to delete your {{consumable.name}}?</p> 
+                        </div>
+                        <div class="actions">
+                            <a href="{% url 'consumable_delete' consumable_id=consumable.id %}" class="ui button">
+                                Confirm Delete
+                            </a>
+                            <div class="ui black deny button">Cancel</div>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% endif %}
+
+     <a id="consumable_create_button" href="{% url 'consumable_create' %}">
+        <div class="ui vertical animated button" tabindex="0">
+            <div class="hidden content">Add Consumable</div>
+            <div class="visible content">
+                <i class="plus circle icon"></i>
+            </div>
+        </div>
+    </a>
+</div>
+
+{% endblock %}

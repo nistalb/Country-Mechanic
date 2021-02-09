@@ -83,11 +83,19 @@
                 closable: true
             });
 
-             $(".delete_modal_tool").click(function () {
+            $(".delete_modal_tool").click(function () {
                 $("#tool_modal-"+this.id).modal("show");
             });
 
             $(".delete_tool").modal({
+                closable: true
+            });
+
+            $(".delete_modal_consumable").click(function () {
+                $("#consumable_modal-"+this.id).modal("show");
+            });
+
+            $(".delete_consumable").modal({
                 closable: true
             });
 
@@ -237,7 +245,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="ui item button" href="#">
+                    <a class="ui item button" href="{% url 'consumable_index' %}">
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Consumables</div>
                             <div class="visible content">
@@ -304,7 +312,7 @@
                 <div class="ui link list">
                 {% if user.is_authenticated %}
                     <a href="/garage" class="item">Garage</a>
-                    <a href="/tools" class="item">Tools</a>
+                    <a href="/tool/index" class="item">Tools</a>
                     <a class="item" href="{% url 'logout' %}">Log Out</a>
                 {% else %}
                     <a href="/" class="item">Home</a>
