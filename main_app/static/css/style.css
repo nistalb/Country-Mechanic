@@ -84,6 +84,18 @@ header > div {
     margin: 0 auto;
     padding-top: 20px;
 }
+
+/* All Forms */
+
+#container-box {
+    height: 75vh !important;
+    margin-top: 20px; 
+}
+
+#form_buttons {
+    margin: 40px;
+}
+
 /* Garage Page */
 #garage {
     text-align: center;
