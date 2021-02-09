@@ -3,9 +3,7 @@
 
 <div id="garage">
     <h3>Garage</h3>
-    {% if equipment == "" %}
-        <p>You haven't added any equipment yet.  Hit the Create Equipment Button to get started</p>
-    {% else %}
+    {% if equipment %}
         <div id="garage_cards" class="ui link cards">
             {% for equipment in equipment %}
                 <div class="card">
@@ -38,9 +36,10 @@
                         </div>
                     </div>
                 </div>
-
             {% endfor %}
         </div>
+    {% else %}
+        <p class="first_visit_text">You haven't added any equipment yet.  Hit the Add Equipment Button to get started</p>
     {% endif %}
 
      <a id="garage_create_button" href="{% url 'equipment_create' %}">

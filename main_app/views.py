@@ -47,10 +47,7 @@ def home(request):
 
 # === Garage ====
 def garage(request):
-    if Equipment.objects.filter(user_id=request.user.id):
-        equipment = Equipment.objects.filter(user_id=request.user.id)
-    else:
-        equipment = ""
+    equipment = Equipment.objects.filter(user_id=request.user.id)
     context = {'equipment': equipment}
     return render(request, 'garage.html', context)
 
@@ -210,10 +207,7 @@ def create_maint_record(request, equipment_id, task_id):
 
 # === Tools ===
 def tool_index(request):
-    if Tool.objects.filter(user_id=request.user.id):
-        tools = Tool.objects.filter(user_id=request.user.id)
-    else:
-        tools = ""
+    tools = Tool.objects.filter(user_id=request.user.id)
     context = {'tools': tools}
     return render(request, 'tool/index.html', context)
 
@@ -263,10 +257,7 @@ def tool_deassoc(request, task_id, tool_id):
 
 # === Consumables ===
 def consumable_index(request):
-    if Consumables.objects.filter(user_id=request.user.id):
-        consumables = Consumables.objects.filter(user_id=request.user.id)
-    else:
-        consumables = ""
+    consumables = Consumables.objects.filter(user_id=request.user.id)
     context = {'consumables': consumables}
     return render(request, 'consumables/index.html', context)
 

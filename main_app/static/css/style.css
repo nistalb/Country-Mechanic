@@ -20,6 +20,10 @@ header > div {
     height: 75px;
 }
 
+.first_visit_text {
+    color: white;
+}
+
 /* Home Page */
 .hero {
     background-color: azure;
@@ -116,6 +120,10 @@ header > div {
     color: white;
     font-size: 30px;
     padding: 20px;
+}
+
+.first_visit_text {
+    color: white;
 }
 
 #garage_cards {
@@ -272,7 +280,7 @@ header > div {
       color: #eee;
   }
 
-/* Tool Page */
+/* Tool Index Page */
 #tool {
     text-align: center;
     min-height: 75vh;
@@ -293,6 +301,21 @@ header > div {
     height: 65px;
 }
 
+/* Consumable Index Page */
+#consumable {
+    text-align: center;
+    min-height: 75vh;
+    min-width: 370px;
+    width: 100%;
+    background-position: center;
+    background-image: url('../resources/shop.jpeg');
+    background-color: azure;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6); 
+    margin: 0 auto;
+}
 
 /* Footer */
 #footer {

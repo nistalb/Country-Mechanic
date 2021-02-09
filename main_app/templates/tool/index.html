@@ -3,9 +3,7 @@
 
 <div id="tool">
     <h3>Tool Box</h3>
-    {% if tools == "" %}
-        <p>You haven't added any tools yet.  Hit the Add Tool Button to get started</p>
-    {% else %}
+    {% if tools %}
         <div id="tool_cards" class="ui cards">
             {% for tool in tools %}
                 <div class="card">
@@ -39,9 +37,10 @@
                         </div>
                     </div>
                 </div>
-
             {% endfor %}
         </div>
+    {% else %}
+        <p class="first_visit_text">You haven't added any tools yet.  Hit the Add Tool Button to get started.</p>
     {% endif %}
 
      <a id="tool_create_button" href="{% url 'tool_create' %}">

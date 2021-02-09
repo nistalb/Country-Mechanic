@@ -3,9 +3,7 @@
 
 <div id="consumable">
     <h3>Consumables</h3>
-    {% if tools == "" %}
-        <p>You haven't added any consumables yet.  Hit the Add Consumables Button to get started</p>
-    {% else %}
+    {% if tools %}
         <div id="consumable_cards" class="ui cards">
             {% for consumable in consumables %}
                 <div class="card">
@@ -45,6 +43,8 @@
 
             {% endfor %}
         </div>
+    {% else %}
+        <p class="first_visit_text">You haven't added any consumables yet.  Hit the Add Consumables Button to get started</p>
     {% endif %}
 
      <a id="consumable_create_button" href="{% url 'consumable_create' %}">
