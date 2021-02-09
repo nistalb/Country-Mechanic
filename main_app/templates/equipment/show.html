@@ -123,7 +123,25 @@
             
         </div>
         <div id="tab4">
-            Consumables
+            <section id="task_cards" class="ui link cards">
+            {% if consumables %}
+                {% for consumable in consumables %}    
+                    <section class="card">
+                        <section class="content">
+                            <section class="header">
+                                <p> {{ consumable.name }} </p>
+                            </section>
+                            <section class="content">
+                                <p> {{ consumable.description }} </p>
+                                
+                            </section>
+                        </section>
+                    </section>
+                {% endfor %} 
+            {% else %}
+                <p>You will see consumables here when you add them to tasks.</p>
+            {% endif %}
+            </section>
         </div>
     </div>   
 </div>

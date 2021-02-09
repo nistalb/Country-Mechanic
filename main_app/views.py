@@ -134,7 +134,8 @@ def equipment_show(request, equipment_id):
     task_ids = tasks.values_list('id')
     maintenance = equipment.maint_record_set.all()
     tools = Tool.objects.filter(task__in = task_ids).distinct()
-    context = {'equipment': equipment, 'tasks': tasks, 'maintenance': maintenance, 'tools': tools}
+    consumables = Consumables.objects.filter(task__in = task_ids).distinct()
+    context = {'equipment': equipment, 'tasks': tasks, 'maintenance': maintenance, 'tools': tools, 'consumables': consumables}
     return render(request, 'equipment/show.html', context)
 
 def equipment_edit(request, equipment_id):
@@ -171,7 +172,8 @@ def task_create(request, equipment_id):
 def task_show(request, task_id):
     task = Task.objects.get(id=task_id)
     available_tools = Tool.objects.exclude(id__in = task.tool.all().values_list('id'))
-    context = {'task': task, 'available_tools': available_tools}
+    available_consumables = Consumables.objects.exclude(id__in = task.consumable.all().values_list('id'))
+    context = {'task': task, 'available_tools': available_tools, 'available_consumables': available_consumables}
     return render(request, 'task/show.html', context)
 
 def task_edit(request, task_id):
@@ -280,3 +282,11 @@ def consumable_delete(request, consumable_id):
     consumable = Consumables.objects.get(id=consumable_id)
     consumable.delete()
     return redirect('consumable_index')
+
+def consumable_assoc(request, task_id, consumable_id):
+    Task.objects.get(id=task_id).consumable.add(consumable_id)
+    return redirect('task_show', task_id=task_id)
+
+def consumable_deassoc(request, task_id, consumable_id):
+    Task.objects.get(id=task_id).consumable.remove(consumable_id)
+    return redirect('task_show', task_id=task_id)

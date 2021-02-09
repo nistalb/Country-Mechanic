@@ -23,6 +23,8 @@ urlpatterns = [
     path('tool/<int:tool_id>/delete', views.tool_delete, name='tool_delete'),
     path('consumable/index', views.consumable_index, name='consumable_index'),
     path('consumable/create', views.consumable_create, name='consumable_create'),
-    path('consumable/<int:consumable_id>/delete', views.consumable_delete, name='consumable_delete'),    
+    path('consumable/<int:consumable_id>/delete', views.consumable_delete, name='consumable_delete'),
+    path('task/<int:task_id>/assoc_consumable/<int:consumable_id>', views.consumable_assoc, name='consumable_assoc'),
+    path('task/<int:task_id>/deassoc_consumable/<int:consumable_id>', views.consumable_deassoc, name='consumable_deassoc'),    
     
 ]
