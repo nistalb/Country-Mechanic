@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="tool">
+    <h3>Tool Box</h3>
+    {% if tools == "" %}
+        <p>You haven't added any tools yet.  Hit the Add Tool Button to get started</p>
+    {% else %}
+        <div id="tool_cards" class="ui cards">
+            {% for tool in tools %}
+                <div class="card">
+                    <div class="content">
+                        <i id="{{tool.id}}" class="right floated close icon delete_modal_tool"></i>
+                        <div class="header">
+                            <p>{{ tool.tool_name }}</p>
+                        </div>
+                        <div class="content">
+                            <p> {{tool.description}} </p>
+                        </div>
+                    </div>
+                </div>
+
+                {% comment %} DELETE MODAL {% endcomment %}
+                <div id="tool_modal-{{ tool.id }}" class="ui modal delete_tool">
+                    <i class="close icon"></i>
+                    <div class="ui equal width">
+                        <div class="header">
+                            <h1>DELETE</h1> 
+                        </div>
+                        <div class="content">
+                            <p>Are you sure you want to delete your {{tool.tool_name}}?</p> 
+                        </div>
+                        <div class="actions">
+                            <a href="{% url 'tool_delete' tool_id=tool.id %}" class="ui button">
+                                Confirm Delete
+                            </a>
+                            <div class="ui black deny button">Cancel</div>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% endif %}
+
+     <a id="tool_create_button" href="{% url 'tool_create' %}">
+        <div class="ui vertical animated button" tabindex="0">
+            <div class="hidden content">Add tool</div>
+            <div class="visible content">
+                <i class="plus circle icon"></i>
+            </div>
+        </div>
+    </a>
+</div>
+
+{% endblock %}

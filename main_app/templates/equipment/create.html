@@ -3,7 +3,7 @@
 
 <div id="container-box" class="ui center aligned stackable grid container">
 
-    <form action="{% url 'equipment_create' %}" method="POST">
+    <form action="{% url 'equipment_create' %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
 
         <div class="ui equal width form">
@@ -54,7 +54,10 @@
                 <h3 class='ui center aligned header'>Cost </h3>
                 <input type="number" name="cost" value=0>
             </div>
-            {% comment %} Add photo stuff here {% endcomment %}
+             <div class="field">
+                <h3 class='ui center aligned header'>Image </h3>
+                <input type="file" name="photo-file" placeholder="URL">
+            </div>
         </div>
         {% if error %}
         <div class="ui error message">

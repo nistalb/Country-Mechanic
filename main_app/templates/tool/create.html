@@ -32,8 +32,7 @@
 
         <div id="form_buttons">
             <input type="submit" class="ui button" value="Create Tool" />
-            <a href="{% url 'garage' %}" class="ui button">Cancel</a>
-            {% comment %} figure out how to redirect back to equipment {% endcomment %}
+            <a href="{{next}}" class="ui button">Cancel</a>
         </div>
     </form>
 </div>

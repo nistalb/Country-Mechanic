@@ -5,7 +5,7 @@
     <div id="equipment_show" class="ui items">
         <div class="item">
             <div id="equipment_show_img" class="image">
-                <img src='/static/resources/car-repair.webp'>
+                <img src='{{ equipment.img_url }}'>
             </div>
             <div class="content">
                 <a class="header">{{equipment.make}} {{equipment.model}}</a>
@@ -47,7 +47,8 @@
                         </section>
                     </section>
                 </section>
-            
+                
+                {% comment %} Delete Modal {% endcomment %}
                 <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
                     <i class="close icon"></i>
                     <div class="ui equal width">
@@ -101,21 +102,23 @@
         </div>
         <div id="tab3">
             <section id="task_cards" class="ui link cards">
-            <p>Tools - coming soon</p>
-            {% comment %} {% for tool in tools %}
-                <section class="card">
-                    <section class="content">
-                        <i id="{{tool.id}}" class="right floated close icon delete_modal_task"></i>
-                        <section class="header">
-                            <p> {{ tool.tool_name }} </p>
-                        </section>
+            {% if tools %}
+                {% for tool in tools %}    
+                    <section class="card">
                         <section class="content">
-                            <p> {{ tool.description }} </p>
-                            
+                            <section class="header">
+                                <p> {{ tool.tool_name }} </p>
+                            </section>
+                            <section class="content">
+                                <p> {{ tool.description }} </p>
+                                
+                            </section>
                         </section>
                     </section>
-                </section>
-            {% endfor %}   {% endcomment %}
+                {% endfor %} 
+            {% else %}
+                <p>You will see tools here when you add them to tasks.</p>
+            {% endif %}
             </section>
             
         </div>

@@ -83,6 +83,14 @@
                 closable: true
             });
 
+             $(".delete_modal_tool").click(function () {
+                $("#tool_modal-"+this.id).modal("show");
+            });
+
+            $(".delete_tool").modal({
+                closable: true
+            });
+
             
             $("#tab_content div").hide(); 
             $("#tabs li:first").attr("id","current"); 
@@ -164,8 +172,6 @@
                         <div class="ui black deny button">
                             Cancel
                         </div>
-                    {% comment %} REVIEW: Cancel button to close modal/redirect to SAME page {% endcomment %}
-                    {% comment %} <div class="ui button" id="hide_modal">Cancel</div> {% endcomment %}
                         <input type="hidden" name="next" value="{{ next }}"/>
                     </div>
                 </div>
@@ -223,10 +229,9 @@
                             </div>
                         </div>
                     </a>
-                    <a class="ui item button" href="{% url 'tool_create' %}?next={{request.get_full_path}}">
-                        <input type="hidden" name="next" value="{{ next }}" />
+                    <a class="ui item button" href="{% url 'tool_index' %}">
                         <div class="ui vertical animated button" tabindex="0">
-                            <div class="hidden content">Add Tool</div>
+                            <div class="hidden content">Tools</div>
                             <div class="visible content">
                                 <i class="wrench icon"></i>
                             </div>
@@ -234,7 +239,7 @@
                     </a>
                     <a class="ui item button" href="#">
                         <div class="ui vertical animated button" tabindex="0">
-                            <div class="hidden content">Add Consumable</div>
+                            <div class="hidden content">Consumables</div>
                             <div class="visible content">
                                 <i class="tint icon"></i>
                             </div>

@@ -97,12 +97,31 @@ def profile_edit(request):
 
 # === Equipment ===
 def equipment_create(request):
+    photo_file = request.FILES.get('photo-file', None) #photo-file is the "name" attribute on the <input type="file">
     if request.method == 'POST':
         equipment_form = EquipmentForm(request.POST)
         if equipment_form.is_valid():
             equipment = equipment_form.save(commit=False)
             equipment.user = request.user
-            equipment.save()
+            
+            if photo_file:
+                s3 = boto3.client('s3')
+                # need a unique "key" for S3 / needs image file extension too
+                key = uuid.uuid4().hex[:6] + \
+                    photo_file.name[photo_file.name.rfind('.'):]
+                try:
+                    s3.upload_fileobj(photo_file, BUCKET, key)
+                    # build the full url string
+                    url = f"{S3_BASE_URL}{BUCKET}/{key}"
+
+                    equipment.img_url = url
+                    equipment.save()
+                # just in case something goes wrong
+                except:
+                    print('An error occurred uploading file to S3')
+            else:
+                equipment.save()
+
             return redirect('garage')
 
     equipment_form = EquipmentForm()
@@ -111,11 +130,11 @@ def equipment_create(request):
 
 def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
-    tasks = Task.objects.filter(equipment_id=equipment_id)
-    maintenance = Maint_Record.objects.filter(equipment_id=equipment_id)
-    #tools = Tool.objects.filter(id__in = tasks.tool.all().values_list('id'))
-    #print(tools, 'tools======')
-    context = {'equipment': equipment, 'tasks': tasks, 'maintenance': maintenance}
+    tasks = equipment.task_set.all()
+    task_ids = tasks.values_list('id')
+    maintenance = equipment.maint_record_set.all()
+    tools = Tool.objects.filter(task__in = task_ids).distinct()
+    context = {'equipment': equipment, 'tasks': tasks, 'maintenance': maintenance, 'tools': tools}
     return render(request, 'equipment/show.html', context)
 
 def equipment_edit(request, equipment_id):
@@ -183,8 +202,15 @@ def create_maint_record(request, equipment_id, task_id):
     return redirect('equipment_show', equipment_id=equipment_id)
 
 # === Tools ===
+def tool_index(request):
+    if Tool.objects.filter(user_id=request.user.id):
+        tools = Tool.objects.filter(user_id=request.user.id)
+    else:
+        tools = ""
+    context = {'tools': tools}
+    return render(request, 'tool/index.html', context)
+
 def tool_create(request):
-    nextvalue = request.GET.get('next')
     photo_file = request.FILES.get('photo-file', None) #photo-file is the "name" attribute on the <input type="file">
     if request.method == 'POST':
         tool_form = ToolForm(request.POST)
@@ -209,11 +235,16 @@ def tool_create(request):
                     print('An error occurred uploading file to S3')
             else:
                 tool.save()
-            return redirect(nextvalue)
+            return redirect('tool_index')
 
     tool_form = ToolForm()
-    context = {'tool_form': tool_form, 'next': nextvalue}
+    context = {'tool_form': tool_form}
     return render(request, 'tool/create.html', context)
+
+def tool_delete(requiest, tool_id):
+    tool = Tool.objects.get(id=tool_id)
+    tool.delete()
+    return redirect('tool_index')
 
 def tool_assoc(request, task_id, tool_id):
     Task.objects.get(id=task_id).tool.add(tool_id)
