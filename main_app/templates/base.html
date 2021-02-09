@@ -223,11 +223,20 @@
                             </div>
                         </div>
                     </a>
-                    <a class="ui item button" href="{% url 'tool_create' %}">
+                    <a class="ui item button" href="{% url 'tool_create' %}?next={{request.get_full_path}}">
+                        <input type="hidden" name="next" value="{{ next }}" />
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Add Tool</div>
                             <div class="visible content">
-                                <i class="car icon"></i>
+                                <i class="wrench icon"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="ui item button" href="#">
+                        <div class="ui vertical animated button" tabindex="0">
+                            <div class="hidden content">Add Consumable</div>
+                            <div class="visible content">
+                                <i class="tint icon"></i>
                             </div>
                         </div>
                     </a>

@@ -102,12 +102,11 @@ def equipment_create(request):
 
 def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
-    task = Task.objects.filter(equipment_id=equipment_id)
-    print(task)
+    tasks = Task.objects.filter(equipment_id=equipment_id)
     maintenance = Maint_Record.objects.filter(equipment_id=equipment_id)
-    tool = Tool.objects.all().filter
-    print(tool)
-    context = {'equipment': equipment, 'task': task, 'maintenance': maintenance}
+    #tools = Tool.objects.filter(id__in = tasks.tool.all().values_list('id'))
+    #print(tools, 'tools======')
+    context = {'equipment': equipment, 'tasks': tasks, 'maintenance': maintenance}
     return render(request, 'equipment/show.html', context)
 
 def equipment_edit(request, equipment_id):
@@ -176,16 +175,19 @@ def create_maint_record(request, equipment_id, task_id):
 
 # === Tools ===
 def tool_create(request):
+    nextvalue = request.GET.get('next')
+    print(nextvalue)
     if request.method == 'POST':
         tool_form = ToolForm(request.POST)
         if tool_form.is_valid():
             tool = tool_form.save(commit=False)
             tool.user = request.user
             tool.save()
-            return redirect('garage')
+            return redirect(nextvalue)
             # figure out tool redirect after create
+
     tool_form = ToolForm()
-    context = {'tool_form': tool_form}
+    context = {'tool_form': tool_form, 'next': nextvalue}
     return render(request, 'tool/create.html', context)
 
 def tool_assoc(request, task_id, tool_id):

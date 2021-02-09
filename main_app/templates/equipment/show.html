@@ -2,10 +2,23 @@
 {% block content %}
 
 <div id="equipment_show">
-    <section>
-        <h1>{{equipment.make}} {{equipment.model}}</h1>
-    </section>
-    
+    <div class="ui internally celled grid">
+        <div class="row">
+            <div class="four wide column">
+                <img>
+                <p>{{equipment.img_url}}</p>
+            </div>
+            <div class="twelve wide column">
+                <h1>{{equipment.make}} {{equipment.model}}</h1>
+                <p>{{equipment.description}}</p>
+                <p>{{equipment.cost}}</p>
+                <p>{{equipment.mfg_year}}</p>
+                <p>{{equipment.hours}}</p>
+                <p>{{equipment.mileage}}</p>
+            </div> 
+        </div>
+    </div>
+
     <ul id="tabs">
         <li><a href="#" name="tab1">Tasks</a></li>
         <li><a href="#" name="tab2">Maintenance Record</a></li>
@@ -16,7 +29,7 @@
     <div id="tab_content">
         <div id="tab1">
             <section id="task_cards" class="ui link cards">
-            {% for task in task %}
+            {% for task in tasks %}
                 <section class="card">
                     <section class="content">
                         <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
@@ -71,8 +84,8 @@
         </div>
         <div id="tab3">
             <section id="task_cards" class="ui link cards">
-            
-            {% comment %} {% for tool in task.tool.all() %}
+            <p>Tools - coming soon</p>
+            {% comment %} {% for tool in tools %}
                 <section class="card">
                     <section class="content">
                         <i id="{{tool.id}}" class="right floated close icon delete_modal_task"></i>
@@ -85,11 +98,11 @@
                         </section>
                     </section>
                 </section>
-            {% endfor %}  {% endcomment %}
+            {% endfor %}   {% endcomment %}
             </section>
             
         </div>
-        <div id="tab3">
+        <div id="tab4">
             Consumables
         </div>
     </div>
