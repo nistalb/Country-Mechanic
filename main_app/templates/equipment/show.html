@@ -52,7 +52,7 @@
         <li><a href="#" name="tab4">Consumables</a></li>    
     </ul>   
     
-    <div id="tab_content">
+    <div id="tab_content" >
         <div id="tab1">
             <section id="task_cards" class="ui link cards">
             {% if tasks %}
@@ -105,7 +105,7 @@
         </div>
 
         <div id="tab2">
-            <section id="task_cards" class="ui link cards">
+            <section id="task_cards" class="ui cards">
             {% if maintenance %}
                 {% for maintenance in maintenance %}
                     <section class="card">
@@ -127,47 +127,44 @@
             {% endif %}
             </section>
         </div>
-        <div id="tab3">
-            <section id="task_cards" class="ui link cards">
-            {% if tools %}
-                {% for tool in tools %}    
-                    <section class="card">
-                        <section class="content">
-                            <section class="header">
-                                <p> {{ tool.tool_name }} </p>
-                            </section>
-                            <section class="content">
-                                <p> {{ tool.description }} </p>
-                                
+        <div id="tab3" class="lined-paper">
+            <section class="paper_tabs">
+                {% if tools %}
+                    {% for tool in tools %}    
+                        <section class="ui relaxed horizontal list">
+                            <section class="item">
+                                <section class="content">
+                                    <p class="header"> {{ tool.tool_name }} </p>
+                                </section>
+                                <section class="content">
+                                    <p> {{ tool.description }} </p>
+                                </section>
                             </section>
                         </section>
-                    </section>
-                {% endfor %} 
-            {% else %}
-                <p>You will see the tools that are needed to maintain your {{equipment.make}} {{equipment.model}} here when you add them to tasks.</p>
-            {% endif %}
+                    {% endfor %} 
+                {% else %}
+                    <p>You will see the tools that are needed to maintain your {{equipment.make}} {{equipment.model}} here when you add them to tasks.</p>
+                {% endif %}
             </section>
-            
         </div>
-        <div id="tab4">
-            <section id="task_cards" class="ui link cards">
-            {% if consumables %}
-                {% for consumable in consumables %}    
-                    <section class="card">
-                        <section class="content">
-                            <section class="header">
-                                <p> {{ consumable.name }} </p>
-                            </section>
-                            <section class="content">
-                                <p> {{ consumable.description }} </p>
-                                
-                            </section>
+        <div id="tab4" class="lined-paper">
+            <section class="paper_tabs">
+                {% if consumables %}
+                    {% for consumable in consumables %}
+                        <section class="ui relaxed horizontal list">
+                            <section class="item">
+                                <section class="content">
+                                    <p class="header">{{ consumable.name }}</p>
+                                </section>
+                                <section class="description">
+                                    <p> {{ consumable.description }} </p>
+                                </section>
+                            </section> 
                         </section>
-                    </section>
-                {% endfor %} 
-            {% else %}
-                <p>You will see consumables that are needed to maintain your {{equipment.make}} {{equipment.model}} here when you add them to tasks.</p>
-            {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>You will see consumables that are needed to maintain your {{equipment.make}} {{equipment.model}} here when you add them to tasks.</p>
+                {% endif %}
             </section>
         </div>
     </div>   

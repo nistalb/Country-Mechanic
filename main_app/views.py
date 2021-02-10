@@ -105,7 +105,7 @@ def equipment_create(request):
             equipment = equipment_form.save(commit=False)
             equipment.user = request.user
             equipment.save()
-            return redirect('garage')
+            return redirect('equipment_show', equipment_id=equipment.id)
 
     equipment_form = EquipmentForm()
     context = {'equipment_form': equipment_form}
@@ -146,7 +146,7 @@ def task_create(request, equipment_id):
             task = task_form.save(commit=False)
             task.equipment = equipment
             task.save()
-            return redirect('equipment_show', equipment_id=equipment_id)
+            return redirect('task_show', task_id=task.id)
     
     task_form = TaskForm()
     context = {'task_form': task_form, 'equipment_id': equipment_id}
@@ -154,8 +154,8 @@ def task_create(request, equipment_id):
 
 def task_show(request, task_id):
     task = Task.objects.get(id=task_id)
-    available_tools = Tool.objects.exclude(id__in = task.tool.all().values_list('id'))
-    available_consumables = Consumables.objects.exclude(id__in = task.consumable.all().values_list('id'))
+    available_tools = Tool.objects.filter(user_id=request.user.id).exclude(id__in = task.tool.all().values_list('id'))
+    available_consumables = Consumables.objects.filter(user_id=request.user.id).exclude(id__in = task.consumable.all().values_list('id'))
     context = {'task': task, 'available_tools': available_tools, 'available_consumables': available_consumables}
     return render(request, 'task/show.html', context)
 
