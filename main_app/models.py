@@ -45,7 +45,6 @@ class Equipment(models.Model):
 class Tool(models.Model):
     tool_name = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=True)
-    img_url = models.URLField(max_length=200, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

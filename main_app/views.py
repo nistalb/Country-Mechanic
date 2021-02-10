@@ -212,30 +212,12 @@ def tool_index(request):
     return render(request, 'tool/index.html', context)
 
 def tool_create(request):
-    photo_file = request.FILES.get('photo-file', None) #photo-file is the "name" attribute on the <input type="file">
     if request.method == 'POST':
         tool_form = ToolForm(request.POST)
         if tool_form.is_valid():
             tool = tool_form.save(commit=False)
             tool.user = request.user
-
-            if photo_file:
-                s3 = boto3.client('s3')
-                # need a unique "key" for S3 / needs image file extension too
-                key = uuid.uuid4().hex[:6] + \
-                    photo_file.name[photo_file.name.rfind('.'):]
-                try:
-                    s3.upload_fileobj(photo_file, BUCKET, key)
-                    # build the full url string
-                    url = f"{S3_BASE_URL}{BUCKET}/{key}"
-
-                    tool.img_url = url
-                    tool.save()
-                # just in case something goes wrong
-                except:
-                    print('An error occurred uploading file to S3')
-            else:
-                tool.save()
+            tool.save()
             return redirect('tool_index')
 
     tool_form = ToolForm()

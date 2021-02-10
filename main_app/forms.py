@@ -26,7 +26,7 @@ class TaskForm(ModelForm):
 class ToolForm(ModelForm):
     class Meta:
         model = Tool
-        fields = ('tool_name', 'description', 'img_url')
+        fields = ('tool_name', 'description')
 
 class ConsumableForm(ModelForm):
     class Meta:
