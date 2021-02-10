@@ -16,7 +16,7 @@ class ProfileForm(ModelForm):
 class EquipmentForm(ModelForm):
     class Meta:
         model = Equipment
-        fields = ('model', 'make', 'mfg_year', 'description', 'mileage', 'hours', 'img_url', 'cost')
+        fields = ('model', 'make', 'mfg_year', 'description', 'mileage', 'hours', 'cost')
 
 class TaskForm(ModelForm):
     class Meta:

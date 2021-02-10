@@ -35,7 +35,6 @@ class Equipment(models.Model):
     description = models.TextField(blank=True)
     mileage = models.PositiveIntegerField(blank=True, default=0)
     hours = models.PositiveIntegerField(blank=True, default=0)
-    img_url = models.URLField(max_length=200, blank=True)
     cost = models.PositiveIntegerField(blank=True, default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -87,3 +86,9 @@ class Maint_Record(models.Model):
 
     def __str__(self):
         return f"{self.date}"
+
+class Photo(models.Model):
+    url = models.URLField(max_length=200, blank=True) 
+    equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    

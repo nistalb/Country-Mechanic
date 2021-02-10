@@ -6,6 +6,7 @@
         <div class="item">
             <div id="equipment_show_img" class="image">
                 <img src='{{ equipment.img_url }}'>
+                <a href="{% url 'equipment_edit_photo' equipment_id=equipment.id %}">Edit</a>
             </div>
             <div class="content">
                 <a class="header">{{equipment.make}} {{equipment.model}}</a>

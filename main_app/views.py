@@ -99,31 +99,12 @@ def profile_delete(request):
 
 # === Equipment ===
 def equipment_create(request):
-    photo_file = request.FILES.get('photo-file', None) #photo-file is the "name" attribute on the <input type="file">
     if request.method == 'POST':
         equipment_form = EquipmentForm(request.POST)
         if equipment_form.is_valid():
             equipment = equipment_form.save(commit=False)
             equipment.user = request.user
-            
-            if photo_file:
-                s3 = boto3.client('s3')
-                # need a unique "key" for S3 / needs image file extension too
-                key = uuid.uuid4().hex[:6] + \
-                    photo_file.name[photo_file.name.rfind('.'):]
-                try:
-                    s3.upload_fileobj(photo_file, BUCKET, key)
-                    # build the full url string
-                    url = f"{S3_BASE_URL}{BUCKET}/{key}"
-
-                    equipment.img_url = url
-                    equipment.save()
-                # just in case something goes wrong
-                except:
-                    print('An error occurred uploading file to S3')
-            else:
-                equipment.save()
-
+            equipment.save()
             return redirect('garage')
 
     equipment_form = EquipmentForm()
