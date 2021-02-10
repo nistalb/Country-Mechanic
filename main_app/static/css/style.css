@@ -20,6 +20,12 @@ header > div {
     height: 75px;
 }
 
+#base_div {
+    height: auto;
+    overflow: auto;
+   
+}
+
 .first_visit_text {
     color: white;
 }
