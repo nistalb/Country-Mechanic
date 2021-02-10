@@ -53,71 +53,77 @@
     </ul>   
     
     <div id="tab_content" >
-        <div id="tab1">
-            <section id="task_cards" class="ui link cards">
-            {% if tasks %}
-                {% for task in tasks %}
-                    <section class="card">
-                        <section class="content">
-                            <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
-                            <section class="header">
-                                <a href="{% url 'task_show' task_id=task.id %}"> 
-                                    <p> {{ task.task_name }} </p>
-                                </a> 
+        <div id="tab1" class="lined-paper">
+            <section class="paper_tabs"> 
+                {% if tasks %}
+                    {% for task in tasks %}
+                        <section class="ui ui relaxed horizontal list">
+                            <section class="item">
+                                <section class="header">
+                                    <a href="{% url 'task_show' task_id=task.id %}"> 
+                                        <p> {{ task.task_name }} </p>
+                                    </a> 
+                                </section>
+                                <section class="content">
+                                    <p>{{ task.description }}</p>
+                                    <p id="{{task.id}}" class="delete_modal_task">Delete Task</p>
+                                </section>
+                            </section>
+                            
+                            {% comment %} Delete Modal {% endcomment %}
+                            <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
+                                <i class="close icon"></i>
+                                <div class="ui equal width">
+                                    <div class="header">
+                                        <h1>DELETE</h1> 
+                                    </div>
+                                    <div class="content">
+                                        <p>Are you sure you want to delete your {{task.task_name}}?</p> 
+                                    </div>
+                                    <div class="actions">
+                                        <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
+                                            Confirm Delete
+                                        </a>
+                                        <div class="ui black deny button">Cancel</div>
+                                        <input type="hidden" name="next" value="{{ next }}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    {% endfor %} 
+                {% else %}
+                    <p> Click on the add button to add the tasks necessary to maintain your {{equipment.make}} {{equipment.model}}.</p>
+                {% endif %}
+                
+                <section id='equipment_create_task'>
+                    <a class="ui item button" href="{% url 'task_create' equipment_id=equipment.id %}">
+                        <section class="ui vertical animated button" tabindex="0">
+                            <section class="hidden content">Add Task</section>
+                            <section class="visible content">
+                                <i class="plus circle icon"></i>
                             </section>
                         </section>
-                    </section>
-                    
-                    {% comment %} Delete Modal {% endcomment %}
-                    <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
-                        <i class="close icon"></i>
-                        <div class="ui equal width">
-                            <div class="header">
-                                <h1>DELETE</h1> 
-                            </div>
-                            <div class="content">
-                                <p>Are you sure you want to delete your {{task.task_name}}?</p> 
-                            </div>
-                            <div class="actions">
-                                <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
-                                    Confirm Delete
-                                </a>
-                                <div class="ui black deny button">Cancel</div>
-                                <input type="hidden" name="next" value="{{ next }}" />
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %} 
-            {% else %}
-                <p> Click on the add button to add the tasks necessary to maintain your {{equipment.make}} {{equipment.model}}.</p>
-            {% endif %}
-            </section>
-            <section id='equipment_create_task'>
-                 <a class="ui item button" href="{% url 'task_create' equipment_id=equipment.id %}">
-                    <section class="ui vertical animated button" tabindex="0">
-                        <section class="hidden content">Add Task</section>
-                        <section class="visible content">
-                            <i class="plus circle icon"></i>
-                        </section>
-                    </section>
-                </a>
+                    </a>
+                </section>
             </section>
         </div>
 
-        <div id="tab2">
-            <section id="task_cards" class="ui cards">
+        <div id="tab2" class="lined-paper">
+            <section class="paper_tabs">
             {% if maintenance %}
                 {% for maintenance in maintenance %}
-                    <section class="card">
-                        <section class="content">
-                            <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
+                    <section class="ui relaxed horizontal list">
+                        <section class="item">
                             <section class="header">
                                 <p> {{ maintenance.task }} </p>
                             </section>
                             <section class="content">
-                                <p> {{ maintenance.date }} </p>
-                                <p> {{ maintenance.hours }} </p> 
-                                <p> {{ maintenance.mileage }} </p>
+                                <p> Performed on {{ maintenance.date }} </p>
+                                {% if maintenance.hours > 0 %}
+                                    <p> Euipment was at {{ maintenance.hours }} hours when maintenance was performed.</p> 
+                                {% else %}
+                                    <p> Equipment was at {{ maintenance.mileage }} miles when maintenance was performed.</p>
+                                {% endif %}
                             </section>
                         </section>
                     </section>

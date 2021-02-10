@@ -78,7 +78,7 @@ class Maint_Record(models.Model):
     date = models.DateField(auto_now=True)
     mileage = models.PositiveIntegerField(blank=True, default=0) 
     hours = models.PositiveIntegerField(blank=True, default=0) 
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
 
     class Meta:
@@ -91,4 +91,3 @@ class Photo(models.Model):
     url = models.URLField(max_length=200, blank=True) 
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    
