@@ -4,10 +4,10 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm, ToolForm, ConsumableForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm, ToolForm, ConsumableForm, PhotoForm
 
 # import models
-from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record 
+from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record, Photo
 
 # AWS Imports
 import boto3
@@ -249,3 +249,28 @@ def consumable_assoc(request, task_id, consumable_id):
 def consumable_deassoc(request, task_id, consumable_id):
     Task.objects.get(id=task_id).consumable.remove(consumable_id)
     return redirect('task_show', task_id=task_id)
+
+# === Photo ===
+def add_photo(request, equipment_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+
+            photo = Photo(url=url, equipment_id=equipment_id, user_id=request.user.id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('equipment_show', equipment_id=equipment_id)
+
+def delete_photo(request, photo_id, equipment_id):
+    Photo.objects.get(id=photo_id).delete()
+    return redirect('equipment_show', equipment_id=equipment_id)

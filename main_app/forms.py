@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Profile, User, Equipment, Task, Tool, Consumables
+from .models import Profile, User, Equipment, Task, Tool, Consumables, Photo
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -32,3 +32,8 @@ class ConsumableForm(ModelForm):
     class Meta:
         model = Consumables
         fields = ('name', 'description', 'part_number', 'source', 'cost')
+
+class PhotoForm(ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('url',)
