@@ -193,6 +193,11 @@ Availability: https://codepen.io/murtaugh/pen/vxaAp
     z-index: 2;
 }
 
+/* Profile Page */
+#profile_new_user {
+    margin: 40px;
+} 
+
 /* Equipment Show Page */
 #equipment_show {
     width: 90vw;

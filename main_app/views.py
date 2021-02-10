@@ -53,11 +53,11 @@ def garage(request):
 
 # === Profile ===
 def profile(request):
+    profile = Profile.objects.get(user_id=request.user.id)
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST)
+        profile_form = ProfileForm(request.POST, instance=profile)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            profile.user = request.user
             profile.save()
             return redirect('profile')
 

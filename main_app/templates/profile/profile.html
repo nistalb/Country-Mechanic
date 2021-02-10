@@ -6,30 +6,41 @@
         <h3 class="ui center aligned header">{{ user.first_name}} {{user.last_name}}</h3>
         <p>Username: {{user.username}}</p>
         <p>Email: {{ user.email }}</p>
-        
-        {% if profile == "" %}
-            <p>Location: </p>
-            <p>Hourly rate: </p>
-        {% else %}
-            <p>Location: {{profile.location}}</p>
-            <p>Hourly rate:  ${{profile.hourly_rate}}.00</p>
-        {% endif %}
-
+        <p>Location: {{profile.location}}</p>
+        <p>Hourly rate:  ${{profile.hourly_rate}}.00</p>
         <p>Date Joined: {{ user.date_joined }}</p>
     </section>
-    <section>
-        {% if profile == "" %}
+    <section id="profile_new_user">
+            {% if profile.location == "" %}
             <p>Oops.  Looks like we are missing some information.  Let's go ahead and add it?</p>
-            <form action="{% url 'profile' %}" method="POST">
-                {% csrf_token %}
-                {{profile_form.as_p}}
-                <input class='ui button' type="submit" value='Add Info'>
-            </form>
-        {% else %}
+            <div id="container-box" class="ui center aligned stackable grid container">
+                
+                <form action="{% url 'profile' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="ui equal width form">
+                        <div class="field">
+                            <h3 class='ui center aligned header'>Location</h3>
+                            <input type="text" name="location" placeholder="USA" >
+                        </div>
+                        <div class="field">
+                            <h3 class='ui center aligned header'>Hourly Rate </h3>
+                            <div class="ui right labeled input ">
+                                <label for="amount" class="ui label">$</label>
+                                <input type="number" id="amount" name="hourly_rate" value=0>
+                                <div class="ui basic label">.00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="form_buttons">
+                        <input class='ui button' type="submit" value='Add Info'>
+                    </div>
+                </form>
+            {% else %}
             <div id="form_buttons">
                 <a href="{% url 'profile_edit' %}" class="ui button">Edit Profile</a>
                 <a href="#" class="ui button delete_modal_profile">Delete Account</a>
             </div>
+        </div>    
         {% endif %}
     </section>
 
