@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div>
+<div id="profile">
     <section>
         <h3 class="ui center aligned header">{{ user.first_name}} {{user.last_name}}</h3>
         <p>Username: {{user.username}}</p>
@@ -34,24 +34,24 @@
     </section>
 
      {% comment %} Delete Modal {% endcomment %}
-                <div id="profile_modal" class="ui modal delete_profile">
-                    <i class="close icon"></i>
-                    <div class="ui equal width">
-                        <div class="header">
-                            <h1>DELETE</h1> 
-                        </div>
-                        <div class="content">
-                            <p>Are you sure you want to delete your Account?</p> 
-                        </div>
-                        <div class="actions">
-                            <a href="{% url 'profile_delete' %}" class="ui button">
-                                Confirm Delete
-                            </a>
-                            <div class="ui black deny button">Cancel</div>
-                            <input type="hidden" name="next" value="{{ next }}" />
-                        </div>
-                    </div>
+        <div id="profile_modal" class="ui modal delete_profile">
+            <i class="close icon"></i>
+            <div class="ui equal width">
+                <div class="header">
+                    <h1>DELETE</h1> 
                 </div>
+                <div class="content">
+                    <p>Are you sure you want to delete your Account?</p> 
+                </div>
+                <div class="actions">
+                    <a href="{% url 'profile_delete' %}" class="ui button">
+                        Confirm Delete
+                    </a>
+                    <div class="ui black deny button">Cancel</div>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+            </div>
+        </div>
 </div>
 
 {% endblock %}

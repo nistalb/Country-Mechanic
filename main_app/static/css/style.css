@@ -317,6 +317,17 @@ header > div {
     margin: 0 auto;
 }
 
+/* profile page */
+#profile {
+    text-align: center;
+    min-height: 75vh;
+    min-width: 370px;
+    width: 100%;
+    background-color: azure;
+    position: relative;
+    margin: 0 auto;
+}
+
 /* Footer */
 #footer {
     background-color: azure;

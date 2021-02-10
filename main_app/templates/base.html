@@ -107,6 +107,11 @@
                 closable: true
             });
 
+            {% comment %} 
+            Title: jQuery folder tabs
+            Author: Axelaredz
+            Availability: https://codepen.io/axelaredz/pen/aswFo
+            {% endcomment %}
             
             $("#tab_content div").hide(); 
             $("#tabs li:first").attr("id","current"); 
@@ -233,7 +238,7 @@
     {% comment %} Nav Bar {% endcomment %}
     <header>
         <div class="ui large secondary menu">
-            <a class="item"> Logo </a>
+            <h1>Country Mechanic</h1>
             <div class="right menu">
                 
                 {% if user.is_authenticated %}

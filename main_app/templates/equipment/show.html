@@ -26,6 +26,11 @@
         </div>
     </div>
 
+    {% comment %} 
+            Title: jQuery folder tabs
+            Author: Axelaredz
+            Availability: https://codepen.io/axelaredz/pen/aswFo
+    {% endcomment %}
     <ul id="tabs">
         <li><a href="#" name="tab1">Tasks</a></li>
         <li><a href="#" name="tab2">Maintenance Record</a></li>
@@ -36,38 +41,42 @@
     <div id="tab_content">
         <div id="tab1">
             <section id="task_cards" class="ui link cards">
-            {% for task in tasks %}
-                <section class="card">
-                    <section class="content">
-                        <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
-                        <section class="header">
-                            <a href="{% url 'task_show' task_id=task.id %}"> 
-                                <p> {{ task.task_name }} </p>
-                            </a> 
+            {% if tasks %}
+                {% for task in tasks %}
+                    <section class="card">
+                        <section class="content">
+                            <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
+                            <section class="header">
+                                <a href="{% url 'task_show' task_id=task.id %}"> 
+                                    <p> {{ task.task_name }} </p>
+                                </a> 
+                            </section>
                         </section>
                     </section>
-                </section>
-                
-                {% comment %} Delete Modal {% endcomment %}
-                <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
-                    <i class="close icon"></i>
-                    <div class="ui equal width">
-                        <div class="header">
-                            <h1>DELETE</h1> 
-                        </div>
-                        <div class="content">
-                            <p>Are you sure you want to delete your {{task.task_name}}?</p> 
-                        </div>
-                        <div class="actions">
-                            <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
-                                Confirm Delete
-                            </a>
-                            <div class="ui black deny button">Cancel</div>
-                            <input type="hidden" name="next" value="{{ next }}" />
+                    
+                    {% comment %} Delete Modal {% endcomment %}
+                    <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
+                        <i class="close icon"></i>
+                        <div class="ui equal width">
+                            <div class="header">
+                                <h1>DELETE</h1> 
+                            </div>
+                            <div class="content">
+                                <p>Are you sure you want to delete your {{task.task_name}}?</p> 
+                            </div>
+                            <div class="actions">
+                                <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
+                                    Confirm Delete
+                                </a>
+                                <div class="ui black deny button">Cancel</div>
+                                <input type="hidden" name="next" value="{{ next }}" />
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %} 
+                {% endfor %} 
+            {% else %}
+                <p> Click on the add button to add the tasks necessary to maintain your {{equipment.make}} {{equipment.model}}.</p>
+            {% endif %}
             </section>
             <section id='equipment_create_task'>
                  <a class="ui item button" href="{% url 'task_create' equipment_id=equipment.id %}">
@@ -82,22 +91,26 @@
         </div>
 
         <div id="tab2">
-             <section id="task_cards" class="ui link cards">
-            {% for maintenance in maintenance %}
-                <section class="card">
-                    <section class="content">
-                        <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
-                        <section class="header">
-                            <p> {{ maintenance.task }} </p>
-                        </section>
+            <section id="task_cards" class="ui link cards">
+            {% if maintenance %}
+                {% for maintenance in maintenance %}
+                    <section class="card">
                         <section class="content">
-                            <p> {{ maintenance.date }} </p>
-                            <p> {{ maintenance.hours }} </p> 
-                            <p> {{ maintenance.mileage }} </p>
+                            <i id="{{task.id}}" class="right floated close icon delete_modal_task"></i>
+                            <section class="header">
+                                <p> {{ maintenance.task }} </p>
+                            </section>
+                            <section class="content">
+                                <p> {{ maintenance.date }} </p>
+                                <p> {{ maintenance.hours }} </p> 
+                                <p> {{ maintenance.mileage }} </p>
+                            </section>
                         </section>
                     </section>
-                </section>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>Maintenance records for your {{equipment.make}} {{equipment.model}} will be added here as they are created.  Create maintenance records from tasks.</p>
+            {% endif %}
             </section>
         </div>
         <div id="tab3">
@@ -117,7 +130,7 @@
                     </section>
                 {% endfor %} 
             {% else %}
-                <p>You will see tools here when you add them to tasks.</p>
+                <p>You will see the tools that are needed to maintain your {{equipment.make}} {{equipment.model}} here when you add them to tasks.</p>
             {% endif %}
             </section>
             
@@ -139,7 +152,7 @@
                     </section>
                 {% endfor %} 
             {% else %}
-                <p>You will see consumables here when you add them to tasks.</p>
+                <p>You will see consumables that are needed to maintain your {{equipment.make}} {{equipment.model}} here when you add them to tasks.</p>
             {% endif %}
             </section>
         </div>
