@@ -12,7 +12,7 @@
             <p>Hourly rate: </p>
         {% else %}
             <p>Location: {{profile.location}}</p>
-            <p>Hourly rate:  {{profile.hourly_rate}}</p>
+            <p>Hourly rate:  ${{profile.hourly_rate}}.00</p>
         {% endif %}
 
         <p>Date Joined: {{ user.date_joined }}</p>

@@ -26,8 +26,14 @@
                 </div>
                 <div class="field">
                   <h3 class='ui center aligned header'>Hourly Rate</h3>
-                  <input type="number" name="hourly_rate" value="{{ profile.hourly_rate }}" >
+                  <div class="ui right labeled input">
+                      <label for="amount" class="ui label">$</label>
+                      <input type="number" id="amount" name="hourly_rate" value="{{ profile.hourly_rate }}">
+                      <div class="ui basic label">.00</div>
+                  </div>
                 </div>
+           
+           
             </div>
             {% if error %}
               <div class="ui error message">

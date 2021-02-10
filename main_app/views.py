@@ -62,10 +62,7 @@ def profile(request):
             return redirect('profile')
 
     user = User.objects.get(id=request.user.id)
-    if Profile.objects.filter(user_id=request.user.id):
-        profile = Profile.objects.get(user_id=request.user.id)
-    else:
-        profile = ""
+    profile = Profile.objects.get(user_id=request.user.id)
     profile_form = ProfileForm()
     context = {'user': user, 'profile_form': profile_form, 'profile': profile}
     return render(request, 'profile/profile.html', context)

@@ -7,6 +7,11 @@
         <div id="garage_cards" class="ui link cards">
             {% for equipment in equipment %}
                 <div class="card">
+                    <div class="image">
+                        {% for photo in equipment.photo_set.all %}
+                            <img src="{{ photo.url }}" alt="">
+                        {% endfor %}
+                    </div>
                     <div class="content">
                         <i id="{{equipment.id}}" class="right floated close icon delete_modal_equipment"></i>
                         <div class="header">

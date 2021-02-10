@@ -14,19 +14,25 @@
             </div>
             <div class="field">
                 <h3 class='ui center aligned header'>Description</h3>
-                <input type="text" name="description" placeholder="Description" >
+                <textarea name="description" cols="30" rows="5" ></textarea>
             </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Part Number</h3>
-                <input type="text" name="part_number" placeholder="A316B" >
-            </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Source</h3>
-                <input type="text" name="source" placeholder="Oreilleys" >
-            </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Cost</h3>
-                <input type="number" name="cost" value=0 >
+            <div class="fields">
+                <div class="field">
+                    <h3 class='ui center aligned header'>Part Number</h3>
+                    <input type="text" name="part_number" placeholder="A316B" >
+                </div>
+                <div class="field">
+                    <h3 class='ui center aligned header'>Source</h3>
+                    <input type="text" name="source" placeholder="Oreilleys" >
+                </div>
+                <div class="field">
+                    <h3 class='ui center aligned header'>Cost </h3>
+                    <div class="ui right labeled input ">
+                        <label for="amount" class="ui label">$</label>
+                        <input type="number" id="amount" name="cost" value=0>
+                        <div class="ui basic label">.00</div>
+                    </div>
+                </div>
             </div>
         </div>
         {% if error %}
