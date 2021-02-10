@@ -10,6 +10,8 @@
                     <div class="image">
                         {% for photo in equipment.photo_set.all %}
                             <img src="{{ photo.url }}" alt="">
+                        {% empty %}
+                            <img class="image dummy_image" src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png">
                         {% endfor %}
                     </div>
                     <div class="content">

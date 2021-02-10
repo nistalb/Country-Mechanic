@@ -18,6 +18,11 @@ header {
 
 header > div {
     height: 75px;
+    padding: 0 20px 0 20px;
+}
+
+#logo {
+    padding-top: 20px;
 }
 
 #base_div {

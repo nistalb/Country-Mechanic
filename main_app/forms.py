@@ -21,7 +21,7 @@ class EquipmentForm(ModelForm):
 class TaskForm(ModelForm):
     class Meta:
         model = Task
-        fields =('task_name', 'description', 'interval', 'duration', 'instructions', 'video')
+        fields =('task_name', 'interval', 'duration', 'instructions', 'video')
 
 class ToolForm(ModelForm):
     class Meta:

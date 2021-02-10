@@ -103,6 +103,8 @@
                 closable: true
             });
 
+            $('.ui.embed').embed();
+
             {% comment %} 
             Title: jQuery folder tabs
             Author: Axelaredz
@@ -234,7 +236,7 @@
     {% comment %} Nav Bar {% endcomment %}
     <header>
         <div class="ui large secondary menu">
-            <h1>Country Mechanic</h1>
+            <h1 id="logo">Country Mechanic</h1>
             <div class="right menu">
                 
                 {% if user.is_authenticated %}
@@ -306,23 +308,26 @@
     <div id="base_div">
       {% block content%} {% endblock %} 
     </div>
+
     {% comment %} Footer {% endcomment %}
      <footer>
         <div id="footer" class="ui vertical footer segment">
             <div class="ui container">
             <div class="ui stackable divided equal height stackable grid" >
-                <div class="five wide column">
+                <div class="four wide column">
                 <h4 class="ui header">Connect</h4>
                 <div class="ui link list">
                     <a href="/about" class="item">info@countrymechanic.com</a>
                 </div>
                 </div>
-                <div class="five wide column">
+                <div class="eight wide column">
                 <h4 class="ui header">Navigate</h4>
-                <div class="ui link list">
+                <div class="ui horizontal link list">
                 {% if user.is_authenticated %}
                     <a href="/garage" class="item">Garage</a>
                     <a href="/tool/index" class="item">Tools</a>
+                    <a href="/consumable/index" class="item">Consumables</a>
+                    <a href="/profile" class="item">Profile</a>
                     <a class="item" href="{% url 'logout' %}">Log Out</a>
                 {% else %}
                     <a href="/" class="item">Home</a>

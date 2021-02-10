@@ -62,11 +62,10 @@ class Consumables(models.Model):
 
 class Task(models.Model):
     task_name = models.CharField(max_length=100, blank=False)
-    description = models.TextField(blank=True)
     interval = models.PositiveIntegerField(blank=True, default=0)
     duration = models.PositiveIntegerField(blank=True, default=0)
     instructions = models.TextField(blank=True)
-    video = models.URLField(max_length=200, blank=True)
+    video = models.CharField(max_length=400, blank=True)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
     tool = models.ManyToManyField(Tool)
     consumable = models.ManyToManyField(Consumables)

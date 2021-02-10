@@ -1,33 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div id="equipment_show" class="ui items">
+        <div class="item">
+            <div class="content">
+                <a class="header">{{ task.task_name }}</a>
+                <div class="meta">
+                    <p>You should do this task every {{ task.interval }} hours/miles and it should take you {{ task.duration }} hours to do.</p>
+                    {% comment %} <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit</a> {% endcomment %}
+                </div>
+                <div class="content">
+                    {{ task.instructions }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 <div id="container-box" class="ui center aligned stackable grid container">
 
+        
+        
         <div class="ui equal width form">
-            <div class="field">
-                <h3 class='ui center aligned header'>Title</h3>
-                <input type="text" name="task_name" value="{{ task.task_name }}" >
-            </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Description</h3>
-                <input type="text" name="description" value="{{ task.description }}" >
-            </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Interval</h3>
-                <input type="number" name="interval" value="{{ task.interval }}" >
-            </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Duration</h3>
-                <input type="number" name="duration" value="{{ task.duration }}" >
-            </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Instructions </h3>
-                <input type="text" name="instructions" value="{{ task.instructions }}" >
-            </div>
-             {% comment %} NOTE Add video embed stuff here {% endcomment %}
+            
             <div class="field">
                 <h3 class='ui center aligned header'>Video </h3>
-                <input type="text" name="video" value="{{ task.video }}">
+                <div class="ui embed" data-url="{{ task.video }}" data-placeholder = "/static/resources/tools.jpg"></div>
             </div>
         </div>
 
