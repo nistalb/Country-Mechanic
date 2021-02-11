@@ -143,7 +143,7 @@ def task_create(request, equipment_id):
             task = task_form.save(commit=False)
             task.equipment = equipment
             task.save()
-            return redirect('task_show', task_id=task.id)
+            return redirect('task_edit', task_id=task.id)
     
     task_form = TaskForm()
     context = {'task_form': task_form, 'equipment_id': equipment_id}

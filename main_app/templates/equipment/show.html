@@ -55,6 +55,7 @@
     <div id="tab_content" >
         <div id="tab1" class="lined-paper">
             <section class="paper_tabs"> 
+                <p>Click on a task to see its details, add tools and consumables, and create maintenance records.</p>
                 {% if tasks %}
                     {% for task in tasks %}
                         <section class="ui ui relaxed horizontal list">
@@ -64,30 +65,7 @@
                                         <p> {{ task.task_name }} </p>
                                     </a> 
                                 </section>
-                                <section class="content">
-                                    <p id="{{task.id}}" class="delete_modal_task">Delete Task</p>
-                                </section>
                             </section>
-                            
-                            {% comment %} Delete Modal {% endcomment %}
-                            <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
-                                <i class="close icon"></i>
-                                <div class="ui equal width">
-                                    <div class="header">
-                                        <h1>DELETE</h1> 
-                                    </div>
-                                    <div class="content">
-                                        <p>Are you sure you want to delete your {{task.task_name}}?  If you do, all related maintenance records will also be deleted.</p> 
-                                    </div>
-                                    <div class="actions">
-                                        <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
-                                            Confirm Delete
-                                        </a>
-                                        <div class="ui black deny button">Cancel</div>
-                                        <input type="hidden" name="next" value="{{ next }}" />
-                                    </div>
-                                </div>
-                            </div>
                         </section>
                     {% endfor %} 
                 {% else %}

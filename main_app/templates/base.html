@@ -95,11 +95,19 @@
                 closable: true
             });
 
-             $(".delete_modal_profile").click(function () {
+            $(".delete_modal_profile").click(function () {
                 $("#profile_modal").modal("show");
             });
 
             $(".delete_profile").modal({
+                closable: true
+            });
+
+            $(".maint_modal_task").click(function () {
+                $("#maintenance_modal").modal("show");
+            });
+
+            $(".task_maintenance").modal({
                 closable: true
             });
 
@@ -244,7 +252,7 @@
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Garage</div>
                             <div class="visible content">
-                                <i class="car icon"></i>
+                                <i class="car icon large"></i>
                             </div>
                         </div>
                     </a>
@@ -252,7 +260,7 @@
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Tools</div>
                             <div class="visible content">
-                                <i class="wrench icon"></i>
+                                <i class="wrench icon large"></i>
                             </div>
                         </div>
                     </a>
@@ -260,7 +268,7 @@
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Consumables</div>
                             <div class="visible content">
-                                <i class="tint icon"></i>
+                                <i class="tint icon tint icon large"></i>
                             </div>
                         </div>
                     </a>
@@ -268,7 +276,7 @@
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Profile</div>
                             <div class="visible content">
-                                <i class="user icon"></i>
+                                <i class="user icon large"></i>
                             </div>
                         </div>
                     </a>
@@ -276,7 +284,7 @@
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Log Out</div>
                             <div class="visible content">
-                                <i class="sign-out icon"></i>
+                                <i class="sign-out icon large"></i>
                             </div>
                         </div>
                     </a>

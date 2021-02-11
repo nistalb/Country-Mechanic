@@ -42,15 +42,17 @@
     {% else %}
         <p class="first_visit_text">You haven't added any tools yet.  Hit the Add Tool Button to get started.</p>
     {% endif %}
-
-     <a id="tool_create_button" href="{% url 'tool_create' %}">
-        <div class="ui vertical animated button" tabindex="0">
-            <div class="hidden content">Add tool</div>
-            <div class="visible content">
-                <i class="plus circle icon"></i>
+      
+    <div class="form_buttons">
+        <a  href="{% url 'tool_create' %}">
+            <div class="ui vertical animated button" tabindex="0">
+                <div class="hidden content">Add tool</div>
+                <div class="visible content">
+                    <i class="plus circle icon large"></i>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>
 
 {% endblock %}

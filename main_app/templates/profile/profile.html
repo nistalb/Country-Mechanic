@@ -3,7 +3,7 @@
 
 <div id="profile">
     <section>
-        <h3 class="ui center aligned header">{{ user.first_name}} {{user.last_name}}</h3>
+        <h2 class="ui center aligned header">{{ user.first_name}} {{user.last_name}}</h2>
         <p>Username: {{user.username}}</p>
         <p>Email: {{ user.email }}</p>
         <p>Location: {{profile.location}}</p>
@@ -31,12 +31,12 @@
                             </div>
                         </div>
                     </div>
-                    <div id="form_buttons">
+                    <div class="form_buttons">
                         <input class='ui button' type="submit" value='Add Info'>
                     </div>
                 </form>
             {% else %}
-            <div id="form_buttons">
+            <div class="form_buttons">
                 <a href="{% url 'profile_edit' %}" class="ui button">Edit Profile</a>
                 <a href="#" class="ui button delete_modal_profile">Delete Account</a>
             </div>

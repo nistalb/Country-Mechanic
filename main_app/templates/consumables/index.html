@@ -47,14 +47,16 @@
         <p class="first_visit_text">You haven't added any consumables yet.  Hit the Add Consumables Button to get started</p>
     {% endif %}
 
-     <a id="consumable_create_button" href="{% url 'consumable_create' %}">
-        <div class="ui vertical animated button" tabindex="0">
-            <div class="hidden content">Add Consumable</div>
-            <div class="visible content">
-                <i class="plus circle icon"></i>
+    <div class="form_buttons">   
+        <a id="consumable_create_button" href="{% url 'consumable_create' %}">
+            <div class="ui vertical animated button" tabindex="0">
+                <div class="hidden content">Add Consumable</div>
+                <div class="visible content">
+                    <i class="plus circle icon large"></i>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>
 
 {% endblock %}
