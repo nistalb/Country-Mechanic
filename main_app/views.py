@@ -30,7 +30,7 @@ def home(request):
         else:
             if User.objects.filter(email=email_form).exists():
                 context={'error': 'Email is already taken'}
-                return rendter(request, 'home.html', context)
+                return render(request, 'home.html', context)
             else:
                 if signup_form.is_valid():
                     user = signup_form.save()
@@ -76,13 +76,24 @@ def profile_edit(request):
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         email = request.POST['email']
-        user.last_name = last_name
-        user.first_name = first_name
-        user.email = email
-        user.profile.location = location
-        user.profile.hourly_rate = hourly_rate
-        user.save()
-        return redirect('profile')
+        username = request.POST['username']
+
+        if User.objects.filter(username=username).exclude(id=request.user.id).exists():
+            context={'error': 'Username is already taken'}
+            return render(request, 'profile/edit.html', context)
+        else:
+            if User.objects.filter(email=email).exclude(id=request.user.id).exists():
+                context={'error': 'Email is already taken'}
+                return render(request, 'profile/edit.html', context)
+            else:
+
+                user.last_name = last_name
+                user.first_name = first_name
+                user.email = email
+                user.profile.location = location
+                user.profile.hourly_rate = hourly_rate
+                user.save()
+                return redirect('profile')
 
     profile_form = ProfileForm(instance=profile)
     user_form = NewUserForm(instance=user)
