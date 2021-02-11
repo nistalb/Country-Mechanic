@@ -2,7 +2,7 @@
 {% block content %}
 
 <div id="task_show">
-    <div id="task_show_task" class="ui items">
+    <div class="ui items">
             <div class="item">
                 <div class="content">
                     <a class="header">{{ task.task_name }}</a>
@@ -15,7 +15,7 @@
                         <p>{{ task.instructions }}</p>
                     </div>
                     {% if task.video %}
-                    <div class="content">
+                    <div id="task_show_video" class="content">
                         <h3 class='ui center aligned header'>Video </h3>
                         <div class="ui embed" data-url="{{ task.video }}" data-placeholder = "/static/resources/tools.jpg"></div>
                     </div>
@@ -25,7 +25,7 @@
         </div>
 
 
-        <div class="ui segment">     
+        <div id="task_show_grid" class="ui segment">     
                 <div class="ui two column very relaxed grid">
                     <div class="column">
                     <h4>Tools required for task.</h4>
@@ -71,10 +71,22 @@
                 </div>
             </div>
 
-        <a href="{% url 'equipment_show' equipment_id=task.equipment_id %}" class="ui button">Return to Equipment Page</a>          
-        <a class="ui button maint_modal_task">Create Maintenance Record</a>
-        <a href="{% url 'task_edit' task_id=task.id %}" class="ui button">Edit Task</a>
-        <a id="{{task.id}}" class="ui button delete_modal_task">Delete Task</a>
+        <div id="task_show_buttons">   
+            <div class="ui relaxed horizontal list"> 
+                <div class="item">    
+                    <a href="{% url 'equipment_show' equipment_id=task.equipment_id %}" class="ui button">Return to Equipment Page</a>
+                </div>
+                <div class="item">         
+                    <a class="ui button maint_modal_task">Create Maintenance Record</a>
+                </div>
+                <div class="item">
+                    <a href="{% url 'task_edit' task_id=task.id %}" class="ui button">Edit Task</a>
+                </div>
+                <div class="item">
+                    <a id="{{task.id}}" class="ui button delete_modal_task">Delete Task</a>
+                </div>
+            </div>
+        </div>
         
         {% comment %} Delete Modal {% endcomment %}
         <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
