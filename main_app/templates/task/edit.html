@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div id="container-box" class="ui center aligned stackable grid container">
 
+<div id="container-box" class="ui center aligned stackable grid container">
     <form action="{% url 'task_edit' task.id %}" method="POST">
         {% csrf_token %}
-
         <div class="ui equal width form">
             <div class="field">
                 <h3 class='ui center aligned header'>Title</h3>
@@ -31,12 +30,12 @@
                 <h3 class='ui center aligned header'>Instructions </h3>
                 <textarea name="instructions" cols="30" rows="5" >{{ task.instructions }}</textarea>
             </div>
-             {% comment %} NOTE Add video embed stuff here {% endcomment %}
+                {% comment %} NOTE Add video embed stuff here {% endcomment %}
             <div class="field">
                 <h3 class='ui center aligned header'>Video </h3>
                 <input type="text" name="video" value="{{ task.video }}">
             </div>
-           
+            
         </div>
         {% if error %}
         <div class="ui error message">
@@ -45,6 +44,95 @@
         </div>
         {% endif %}
 
+        {% comment %} Adding and Removing Tools {% endcomment %}
+        <div class="ui segment">     
+            <div class="ui two column very relaxed grid">
+                <div class="column">
+                {% if task.tool.count %}
+                        {% for tool in task.tool.all %}
+                            <div class="ui relaxed horizontal list">
+                                <div class="item">
+                                    <div class="header">
+                                        {{ tool.tool_name }}
+                                    </div>
+                                    <div class="actions">
+                                        <a href="{% url 'tool_deassoc' task.id tool.id %}" class="btn red">Remove Tool</a>
+                                    </div> 
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h5>No Tools :(</h5>
+                    {% endif %}
+                </div>
+                <div class="column">
+                    {% for tool in available_tools %}
+                        <div class="ui relaxed horizontal list">
+                            <div class="item">
+                                <div class="header">
+                                    {{ tool.tool_name }}
+                                </div>
+                                <div class="actions">
+                                    <a href="{% url 'tool_assoc' task.id tool.id %}" class="btn blue">Add</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="ui vertical divider">
+                Tools
+            </div>
+        </div>
+
+        {% comment %} Adding and Removing Consumables {% endcomment %}
+        <div class="ui segment">     
+            <div class="ui two column very relaxed grid">
+                <div class="column">
+                {% if task.consumable.count %}
+                        {% for consumable in task.consumable.all %}
+                            <div class="ui relaxed horizontal list">
+                                <div class="item">
+                                    <div class="header">
+                                        {{ consumable.name }}
+                                    </div>
+                                    <div class="description">
+                                        {{ consumable.description }}
+                                    </div>
+                                    <div class="actions">
+                                        <a href="{% url 'consumable_deassoc' task.id consumable.id %}" class="btn red">Remove Consumable</a>
+                                    </div> 
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h5>No Consumables</h5>
+                    {% endif %}
+                </div>
+                <div class="column">
+                    {% for consumable in available_consumables %}
+                        <div class="ui relaxed horizontal list">
+                            <div class="item">
+                                <div class="header">
+                                    {{ consumable.name }}
+                                </div>
+                                <div class="description">
+                                    {{ consumable.description }}
+                                </div>
+                                <div class="actions">
+                                     <a href="{% url 'consumable_assoc' task.id consumable.id %}" class="btn blue">Add</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="ui vertical divider">
+                Consumables
+            </div>
+        </div>
+
+
         <div id="form_buttons">
             <input type="submit" class="ui button" value="Edit Task" />
             <a href="{% url 'task_show' task_id=task.id %}" class="ui button">Cancel</a> 
@@ -52,5 +140,4 @@
     </form>
 </div>
 
-
-{% endblock %}
+ {% endblock %}

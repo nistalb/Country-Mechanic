@@ -27,89 +27,40 @@
 
 
 <div id="container-box" class="ui center aligned stackable grid container">
-
-        {% if task.tool.count %}
-
-            {% for tool in task.tool.all %}
-
-                <div class="card">
-                    
-                    <div class="content">
-                        <img class="right floated mini ui image" src="{{ tool.img_url }}">
-                        <div class="header">
-                            {{ tool.tool_name }}
-                        </div>
-                        <div class="description">
-                            {{ tool.description }}
-                        </div>
+    {% if task.tool.count %}
+        {% for tool in task.tool.all %}
+            <div class="card">
+                <div class="content">
+                    <div class="header">
+                        {{ tool.tool_name }}
                     </div>
-                    <div class="actions">
-                        <a href="{% url 'tool_deassoc' task.id tool.id %}" class="btn red">Remove Tool</a>
-                    </div> 
+                    <div class="description">
+                        {{ tool.description }}
+                    </div>
                 </div>
-
-            {% endfor %}
-
-        {% else %}
-            <h5>No Tools :(</h5>
-        {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <h5>No Tools :(</h5>
+    {% endif %}
         
-        {% for tool in available_tools %}
-
-        <div class="card">
-          <div class="content">
-            <p>
-                {{ tool.tool_name }}
-            </p>
-          </div>
-          <div class="actions">
-            <a href="{% url 'tool_assoc' task.id tool.id %}" class="btn blue">Add</a>
-          </div>
-
-        </div>
-
-      {% endfor %}
-
-       {% if task.consumable.count %}
-
-            {% for consumable in task.consumable.all %}
-
-                <div class="card">
-                    
-                    <div class="content">
-                        <div class="header">
-                            {{ consumable.name }}
-                        </div>
-                        <div class="description">
-                            {{ consumable.description }}
-                        </div>
+       
+    {% if task.consumable.count %}
+        {% for consumable in task.consumable.all %}
+            <div class="card">
+                <div class="content">
+                    <div class="header">
+                        {{ consumable.name }}
                     </div>
-                    <div class="actions">
-                        <a href="{% url 'consumable_deassoc' task.id consumable.id %}" class="btn red">Remove Consumable</a>
-                    </div> 
+                    <div class="description">
+                        {{ consumable.description }}
+                    </div>
                 </div>
-
-            {% endfor %}
-
-        {% else %}
-            <h5>No Consumables :(</h5>
-        {% endif %}
-
-        {% for consumable in available_consumables %}
-
-        <div class="card">
-          <div class="content">
-            <p>
-                {{ consumable.name }}
-            </p>
-          </div>
-          <div class="actions">
-            <a href="{% url 'consumable_assoc' task.id consumable.id %}" class="btn blue">Add</a>
-          </div>
-
-        </div>
-
-      {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <h5>No Consumables </h5>
+    {% endif %}
               
     <a href="{% url 'create_maint_record' equipment_id=task.equipment_id task_id=task.id %}">Create Maintenance Record</a>
     <a href="{% url 'task_edit' task_id=task.id %}">Edit Task</a>

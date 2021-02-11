@@ -151,9 +151,9 @@ def task_create(request, equipment_id):
 
 def task_show(request, task_id):
     task = Task.objects.get(id=task_id)
-    available_tools = Tool.objects.filter(user_id=request.user.id).exclude(id__in = task.tool.all().values_list('id'))
+    #available_tools = Tool.objects.filter(user_id=request.user.id).exclude(id__in = task.tool.all().values_list('id'))
     available_consumables = Consumables.objects.filter(user_id=request.user.id).exclude(id__in = task.consumable.all().values_list('id'))
-    context = {'task': task, 'available_tools': available_tools, 'available_consumables': available_consumables}
+    context = {'task': task, 'available_consumables': available_consumables}
     return render(request, 'task/show.html', context)
 
 def task_edit(request, task_id):
@@ -164,8 +164,10 @@ def task_edit(request, task_id):
             task_form.save()
             return redirect('task_show', task_id)
 
+    available_consumables = Consumables.objects.filter(user_id=request.user.id).exclude(id__in = task.consumable.all().values_list('id'))
+    available_tools = Tool.objects.filter(user_id=request.user.id).exclude(id__in = task.tool.all().values_list('id'))
     task_form = TaskForm()
-    context = {'task_form': task_form, 'task': task}
+    context = {'task_form': task_form, 'task': task, 'available_tools': available_tools, 'available_consumables': available_consumables}
     return render(request, 'task/edit.html', context)
 
 def task_delete(request, task_id):
@@ -209,11 +211,11 @@ def tool_delete(request, tool_id):
 
 def tool_assoc(request, task_id, tool_id):
     Task.objects.get(id=task_id).tool.add(tool_id)
-    return redirect('task_show', task_id=task_id)
+    return redirect('task_edit', task_id=task_id)
 
 def tool_deassoc(request, task_id, tool_id):
     Task.objects.get(id=task_id).tool.remove(tool_id)
-    return redirect('task_show', task_id=task_id)
+    return redirect('task_edit', task_id=task_id)
 
 # === Consumables ===
 def consumable_index(request):
@@ -241,11 +243,11 @@ def consumable_delete(request, consumable_id):
 
 def consumable_assoc(request, task_id, consumable_id):
     Task.objects.get(id=task_id).consumable.add(consumable_id)
-    return redirect('task_show', task_id=task_id)
+    return redirect('task_edit', task_id=task_id)
 
 def consumable_deassoc(request, task_id, consumable_id):
     Task.objects.get(id=task_id).consumable.remove(consumable_id)
-    return redirect('task_show', task_id=task_id)
+    return redirect('task_edit', task_id=task_id)
 
 # === Photo ===
 def add_photo(request, equipment_id):
