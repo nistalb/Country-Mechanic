@@ -11,16 +11,21 @@
                 <h3 class='ui center aligned header'>Title</h3>
                 <input type="text" name="task_name" placeholder="task" >
             </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Interval</h3>
-                <p>How often does this maintenance need to occur?</p></p>
-                <p>Use either hours or miles, depending on the equipment.</p>
-                <input type="number" name="interval" value=0 >
-            </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Duration</h3>
-                <p>How long does this maintenance take in hours?</p>
-                <input type="number" name="duration" value=0 >
+            <div class="fields">
+                <div class="field">
+                    <h3 class='ui center aligned header'>Maintenance Interval</h3>
+                    <div class="ui right labeled input ">
+                        <input type="number" name="interval" value=0 >
+                        <div class="ui basic label">hours/miles</div>
+                    </div>
+                </div>
+                <div class="field">
+                    <h3 class='ui center aligned header'>Task Duration</h3>
+                    <div class="ui right labeled input ">
+                        <input type="number" name="duration" value=0>
+                        <div class="ui basic label">hours</div>
+                    </div>
+                </div>
             </div>
             <div class="field">
                 <h3 class='ui center aligned header'>Instructions </h3>
@@ -30,7 +35,7 @@
             <div class="field">
                 <h3 class='ui center aligned header'>Video </h3>
                 <p>Copy and paste a link to an instructional video.</p>
-                <p>Youtube is a great place to start looking for videos.</p>
+                <p>If the video is on Youtube, right click and select copy embed code.</p>
                 <input type="text" name="video" placeholder="video">
             </div>
            

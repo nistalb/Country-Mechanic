@@ -11,13 +11,21 @@
                 <h3 class='ui center aligned header'>Title</h3>
                 <input type="text" name="task_name" value="{{ task.task_name }}" >
             </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Interval</h3>
-                <input type="number" name="interval" value="{{ task.interval }}" >
-            </div>
-            <div class="field">
-                <h3 class='ui center aligned header'>Duration</h3>
-                <input type="number" name="duration" value="{{ task.duration }}" >
+            <div class="fields">
+                <div class="field">
+                    <h3 class='ui center aligned header'>Maintenance Interval</h3>
+                    <div class="ui right labeled input ">
+                        <input type="number" name="interval" value="{{task.interval}}" >
+                        <div class="ui basic label">hours/miles</div>
+                    </div>
+                </div>
+                <div class="field">
+                    <h3 class='ui center aligned header'>Task Duration</h3>
+                    <div class="ui right labeled input ">
+                        <input type="number" name="duration" value="{{task.duration}}">
+                        <div class="ui basic label">hours</div>
+                    </div>
+                </div>
             </div>
             <div class="field">
                 <h3 class='ui center aligned header'>Instructions </h3>
@@ -39,7 +47,7 @@
 
         <div id="form_buttons">
             <input type="submit" class="ui button" value="Edit Task" />
-            {% comment %} <a href="{% url 'equipment_show' equipment_id %}" class="ui button">Cancel</a> {% endcomment %}
+            <a href="{% url 'task_show' task_id=task.id %}" class="ui button">Cancel</a> 
         </div>
     </form>
 </div>

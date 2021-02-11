@@ -77,7 +77,7 @@
                                         <h1>DELETE</h1> 
                                     </div>
                                     <div class="content">
-                                        <p>Are you sure you want to delete your {{task.task_name}}?</p> 
+                                        <p>Are you sure you want to delete your {{task.task_name}}?  If you do, all related maintenance records will also be deleted.</p> 
                                     </div>
                                     <div class="actions">
                                         <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
