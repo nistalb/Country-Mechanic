@@ -1,121 +1,122 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div id="equipment_show" class="ui items">
-        <div class="item">
-            <div class="content">
-                <a class="header">{{ task.task_name }}</a>
-                <div class="meta">
-                    <p>You should perform this task every {{ task.interval }} hours/miles and it should take you {{ task.duration }} hours to do.</p>
-                    {% comment %} <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit</a> {% endcomment %}
-                </div>
+<div id="task_show">
+    <div id="task_show_task" class="ui items">
+            <div class="item">
                 <div class="content">
-                    <div class="header">Instructions</div>
-                    <p>{{ task.instructions }}</p>
-                </div>
-                {% if task.video %}
-                <div class="content">
-                    <h3 class='ui center aligned header'>Video </h3>
-                    <div class="ui embed" data-url="{{ task.video }}" data-placeholder = "/static/resources/tools.jpg"></div>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-
-    <div class="ui segment">     
-            <div class="ui two column very relaxed grid">
-                <div class="column">
-                <h4>Tools required for task.</h4>
-                {% if task.tool.count %}
-                        {% for tool in task.tool.all %}
-                            <div class="ui relaxed horizontal list">
-                                <div class="item">
-                                    <div class="header">
-                                        {{ tool.tool_name }}
-                                    </div>
-                                    <div class="description">
-                                        {{ tool.description }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <h5>No Tools</h5>
-                    {% endif %}
-                </div>
-                <div class="column">
-                    <h4>Consumables required for task.</h4>
-                    {% if task.consumable.count %}
-                        {% for consumable in task.consumable.all %}
-                            <div class="ui relaxed horizontal list">
-                                <div class="item">
-                                    <div class="header">
-                                        {{ consumable.name }}
-                                    </div>
-                                    <div class="description">
-                                        {{ consumable.description }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <h5>No Consumables</h5>
+                    <a class="header">{{ task.task_name }}</a>
+                    <div class="meta">
+                        <p>You should perform this task every {{ task.interval }} hours/miles and it should take you {{ task.duration }} hours to do.</p>
+                        {% comment %} <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit</a> {% endcomment %}
+                    </div>
+                    <div class="content">
+                        <div class="header">Instructions</div>
+                        <p>{{ task.instructions }}</p>
+                    </div>
+                    {% if task.video %}
+                    <div class="content">
+                        <h3 class='ui center aligned header'>Video </h3>
+                        <div class="ui embed" data-url="{{ task.video }}" data-placeholder = "/static/resources/tools.jpg"></div>
+                    </div>
                     {% endif %}
                 </div>
             </div>
-            <div class="ui vertical divider">
-                And
+        </div>
+
+
+        <div class="ui segment">     
+                <div class="ui two column very relaxed grid">
+                    <div class="column">
+                    <h4>Tools required for task.</h4>
+                    {% if task.tool.count %}
+                            {% for tool in task.tool.all %}
+                                <div class="ui relaxed horizontal list">
+                                    <div class="item">
+                                        <div class="header">
+                                            {{ tool.tool_name }}
+                                        </div>
+                                        <div class="description">
+                                            {{ tool.description }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <h5>No Tools</h5>
+                        {% endif %}
+                    </div>
+                    <div class="column">
+                        <h4>Consumables required for task.</h4>
+                        {% if task.consumable.count %}
+                            {% for consumable in task.consumable.all %}
+                                <div class="ui relaxed horizontal list">
+                                    <div class="item">
+                                        <div class="header">
+                                            {{ consumable.name }}
+                                        </div>
+                                        <div class="description">
+                                            {{ consumable.description }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <h5>No Consumables</h5>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="ui vertical divider">
+                    And
+                </div>
+            </div>
+
+        <a href="{% url 'equipment_show' equipment_id=task.equipment_id %}" class="ui button">Return to Equipment Page</a>          
+        <a class="ui button maint_modal_task">Create Maintenance Record</a>
+        <a href="{% url 'task_edit' task_id=task.id %}" class="ui button">Edit Task</a>
+        <a id="{{task.id}}" class="ui button delete_modal_task">Delete Task</a>
+        
+        {% comment %} Delete Modal {% endcomment %}
+        <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
+            <i class="close icon"></i>
+            <div class="ui equal width">
+                <div class="header">
+                    <h1>DELETE</h1> 
+                </div>
+                <div class="content">
+                    <p>Are you sure you want to delete your {{task.task_name}}?  If you do, all related maintenance records will also be deleted.</p> 
+                </div>
+                <div class="actions">
+                    <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
+                        Confirm Delete
+                    </a>
+                    <div class="ui black deny button">Cancel</div>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
             </div>
         </div>
 
-    <a href="{% url 'equipment_show' equipment_id=task.equipment_id %}" class="ui button">Return to Equipment Page</a>          
-    <a class="ui button maint_modal_task">Create Maintenance Record</a>
-    <a href="{% url 'task_edit' task_id=task.id %}" class="ui button">Edit Task</a>
-    <a id="{{task.id}}" class="ui button delete_modal_task">Delete Task</a>
-    
-    {% comment %} Delete Modal {% endcomment %}
-    <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
-        <i class="close icon"></i>
-        <div class="ui equal width">
-            <div class="header">
-                <h1>DELETE</h1> 
-            </div>
-            <div class="content">
-                <p>Are you sure you want to delete your {{task.task_name}}?  If you do, all related maintenance records will also be deleted.</p> 
-            </div>
-            <div class="actions">
-                <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
-                    Confirm Delete
-                </a>
-                <div class="ui black deny button">Cancel</div>
-                <input type="hidden" name="next" value="{{ next }}" />
+        {% comment %} Maintenance Modal {% endcomment %}
+        <div id="maintenance_modal" class="ui modal task_maintenance">
+            <i class="close icon"></i>
+            <div class="ui equal width">
+                <div class="header">
+                    <h1>Create Record</h1> 
+                </div>
+                <div class="content">
+                    <p>Is the equipment up to date for hours/miles?  If not, edit the equipment and then create a maintenance record.</p> 
+                </div>
+                <div class="actions">
+                    <a href="{% url 'create_maint_record' equipment_id=task.equipment_id task_id=task.id %}" class="ui button">
+                        Confirm Create
+                    </a>
+                    <div class="ui black deny button">Cancel</div>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
             </div>
         </div>
+        
     </div>
-
-    {% comment %} Maintenance Modal {% endcomment %}
-    <div id="maintenance_modal" class="ui modal task_maintenance">
-        <i class="close icon"></i>
-        <div class="ui equal width">
-            <div class="header">
-                <h1>Create Record</h1> 
-            </div>
-            <div class="content">
-                <p>Is the equipment up to date for hours/miles?  If not, edit the equipment and then create a maintenance record.</p> 
-            </div>
-            <div class="actions">
-                <a href="{% url 'create_maint_record' equipment_id=task.equipment_id task_id=task.id %}" class="ui button">
-                    Confirm Create
-                </a>
-                <div class="ui black deny button">Cancel</div>
-                <input type="hidden" name="next" value="{{ next }}" />
-            </div>
-        </div>
-    </div>
-    
 </div>
-
 
 {% endblock %}
