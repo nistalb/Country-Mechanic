@@ -29,11 +29,13 @@
                             <p>Are you sure you want to delete your {{tool.tool_name}}?</p> 
                         </div>
                         <div class="actions">
-                            <a href="{% url 'tool_delete' tool_id=tool.id %}" class="ui button">
-                                Confirm Delete
-                            </a>
-                            <div class="ui black deny button">Cancel</div>
-                            <input type="hidden" name="next" value="{{ next }}" />
+                            <div class="form_buttons">
+                                <a href="{% url 'tool_delete' tool_id=tool.id %}" class="ui button">
+                                    Confirm Delete
+                                </a>
+                                <div class="ui black deny button">Cancel</div>
+                                <input type="hidden" name="next" value="{{ next }}" />
+                            </div>
                         </div>
                     </div>
                 </div>

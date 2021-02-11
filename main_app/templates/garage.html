@@ -27,7 +27,7 @@
                 {% comment %} DELETE MODAL {% endcomment %}
                 <div id="modal-{{ equipment.id }}" class="ui modal delete_equipment">
                     <i class="close icon"></i>
-                    <div class="ui card">
+                    <div class="ui form">
                         <div class="header">
                             <h1>DELETE</h1> 
                         </div>
@@ -35,11 +35,13 @@
                             <p>Are you sure you want to delete your {{equipment.make}} {{equipment.model}}?</p> 
                         </div>
                         <div class="actions">
-                            <a href="{% url 'equipment_delete' equipment_id=equipment.id %}" class="ui button">
-                                Confirm Delete
-                            </a>
-                            <div class="ui black deny button">Cancel</div>
-                            <input type="hidden" name="next" value="{{ next }}" />
+                            <div class="form_buttons">
+                                <a href="{% url 'equipment_delete' equipment_id=equipment.id %}" class="ui button">
+                                    Confirm Delete
+                                </a>
+                                <div class="ui black deny button">Cancel</div>
+                                <input type="hidden" name="next" value="{{ next }}" />
+                            </div>
                         </div>
                     </div>
                 </div>
