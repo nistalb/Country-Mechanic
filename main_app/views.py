@@ -86,7 +86,6 @@ def profile_edit(request):
                 context={'error': 'Email is already taken'}
                 return render(request, 'profile/edit.html', context)
             else:
-
                 user.last_name = last_name
                 user.first_name = first_name
                 user.email = email
@@ -150,11 +149,16 @@ def task_create(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     if request.method == 'POST':
         task_form = TaskForm(request.POST)
-        if task_form.is_valid():
-            task = task_form.save(commit=False)
-            task.equipment = equipment
-            task.save()
-            return redirect('task_edit', task_id=task.id)
+        taskname_form = request.POST['task_name']
+        if Task.objects.filter(task_name=taskname_form).exists():
+            context={'error': 'Task name is already taken', 'equipment_id': equipment_id}
+            return render(request, 'task/create.html', context)
+        else:
+            if task_form.is_valid():
+                task = task_form.save(commit=False)
+                task.equipment = equipment
+                task.save()
+                return redirect('task_edit', task_id=task.id)
     
     task_form = TaskForm()
     context = {'task_form': task_form, 'equipment_id': equipment_id}
@@ -162,9 +166,7 @@ def task_create(request, equipment_id):
 
 def task_show(request, task_id):
     task = Task.objects.get(id=task_id)
-    #available_tools = Tool.objects.filter(user_id=request.user.id).exclude(id__in = task.tool.all().values_list('id'))
-    available_consumables = Consumables.objects.filter(user_id=request.user.id).exclude(id__in = task.consumable.all().values_list('id'))
-    context = {'task': task, 'available_consumables': available_consumables}
+    context = {'task': task}
     return render(request, 'task/show.html', context)
 
 def task_edit(request, task_id):

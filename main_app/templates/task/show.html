@@ -27,6 +27,7 @@
     <div class="ui segment">     
             <div class="ui two column very relaxed grid">
                 <div class="column">
+                <h4>Tools required for task.</h4>
                 {% if task.tool.count %}
                         {% for tool in task.tool.all %}
                             <div class="ui relaxed horizontal list">
@@ -45,6 +46,7 @@
                     {% endif %}
                 </div>
                 <div class="column">
+                    <h4>Consumables required for task.</h4>
                     {% if task.consumable.count %}
                         {% for consumable in task.consumable.all %}
                             <div class="ui relaxed horizontal list">

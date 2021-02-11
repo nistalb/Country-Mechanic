@@ -35,13 +35,7 @@
                 </div>
             </div>
         </div>
-        {% if error %}
-        <div class="ui error message">
-            <div class="header">Action Forbidden</div>
-            <p>{{error}}</p>
-        </div>
-        {% endif %}
-
+        
         <div class="form_buttons">
             <input type="submit" class="ui button" value="Create Consumable" />
             <a href="{% url 'consumable_index' %}" class="ui button">Cancel</a>
