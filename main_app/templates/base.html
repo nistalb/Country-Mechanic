@@ -24,6 +24,10 @@
 
     {% comment %} CSS from Static File {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+    {% comment %} Google Fonts {% endcomment %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel="stylesheet">
     
     {% comment %} JQuery {% endcomment %}
      <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -53,6 +57,13 @@
 
             $(".signup").modal({
                 closable: true
+            });
+
+            $(".signup").on('hide.bs.modal', function (e) {
+                if (invalidForm) {
+                    e.preventDefault();
+                    $(".signup").modal("show");
+                };
             });
 
             $("#login_modal").click(function() {
@@ -180,12 +191,12 @@
                     </div>
                     <div class="fields">
                         <div class="field">
-                            <label>Password</label>
+                            <label>Password</label> 
                             <input type="password" name="password1" placeholder="Password" required>
                         </div>    
                         <div class="field">
-                            <label>Password Confirmation</label>
-                            <input type="password" name="password2" placeholder="Password" required>
+                            <label>Password Confirmation</label> 
+                            <input type="password" name="password2" placeholder="Password" required> 
                         </div>
                     </div>
                     {% if error %}

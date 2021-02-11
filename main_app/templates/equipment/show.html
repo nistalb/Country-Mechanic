@@ -62,7 +62,7 @@
                             <section class="item">
                                 <section class="header">
                                     <a href="{% url 'task_show' task_id=task.id %}"> 
-                                        <p> {{ task.task_name }} </p>
+                                        <p class="handwritten"> {{ task.task_name }} </p>
                                     </a> 
                                 </section>
                             </section>
@@ -91,10 +91,10 @@
                 {% for maintenance in maintenance %}
                     <section class="ui relaxed horizontal list">
                         <section class="item">
-                            <section class="header">
-                                <p> {{ maintenance.task }} </p>
+                            <section class="content handwritten">
+                                <p class="header"> {{ maintenance.task }} </p>
                             </section>
-                            <section class="content">
+                            <section class="content handwritten">
                                 <p> Performed on {{ maintenance.date }} </p>
                                 {% if maintenance.hours > 0 %}
                                     <p> Euipment was at {{ maintenance.hours }} hours when maintenance was performed.</p> 
@@ -117,10 +117,10 @@
                     {% for tool in tools %}    
                         <section class="ui relaxed horizontal list">
                             <section class="item">
-                                <section class="content">
+                                <section class="content handwritten">
                                     <p class="header"> {{ tool.tool_name }} </p>
                                 </section>
-                                <section class="content">
+                                <section class="content handwritten">
                                     <p> {{ tool.description }} </p>
                                 </section>
                             </section>
@@ -138,10 +138,10 @@
                     {% for consumable in consumables %}
                         <section class="ui relaxed horizontal list">
                             <section class="item">
-                                <section class="content">
+                                <section class="content handwritten">
                                     <p class="header">{{ consumable.name }}</p>
                                 </section>
-                                <section class="description">
+                                <section class="description handwritten">
                                     <p> {{ consumable.description }} </p>
                                 </section>
                             </section> 
