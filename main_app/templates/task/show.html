@@ -11,8 +11,12 @@
                         {% comment %} <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit</a> {% endcomment %}
                     </div>
                     <div class="content">
-                        <div class="header">Instructions</div>
-                        <p>{{ task.instructions }}</p>
+                        <div class="header">
+                            <h3>Instructions</h3>
+                        </div>
+                        <div class="meta">
+                            <p>{{ task.instructions }}</p>
+                        </div>
                     </div>
                     {% if task.video %}
                     <div id="task_show_video" class="content">
@@ -87,7 +91,7 @@
                 </div>
             </div>
         </div>
-        
+
         {% comment %} Delete Modal {% endcomment %}
         <div id="task_modal-{{ task.id }}" class="ui modal delete_task">
             <i class="close icon"></i>
