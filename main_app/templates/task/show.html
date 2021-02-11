@@ -10,8 +10,15 @@
                     {% comment %} <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit</a> {% endcomment %}
                 </div>
                 <div class="content">
-                    {{ task.instructions }}
+                    <div class="header">Instructions</div>
+                    <p>{{ task.instructions }}</p>
                 </div>
+                {% if task.video %}
+                <div class="content">
+                    <h3 class='ui center aligned header'>Video </h3>
+                    <div class="ui embed" data-url="{{ task.video }}" data-placeholder = "/static/resources/tools.jpg"></div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -20,16 +27,6 @@
 
 
 <div id="container-box" class="ui center aligned stackable grid container">
-
-        
-        
-        <div class="ui equal width form">
-            
-            <div class="field">
-                <h3 class='ui center aligned header'>Video </h3>
-                <div class="ui embed" data-url="{{ task.video }}" data-placeholder = "/static/resources/tools.jpg"></div>
-            </div>
-        </div>
 
         {% if task.tool.count %}
 
