@@ -8,7 +8,6 @@
                     <a class="header">{{ task.task_name }}</a>
                     <div class="meta">
                         <p>You should perform this task every {{ task.interval }} hours/miles and it should take you {{ task.duration }} hours to do.</p>
-                        {% comment %} <a href="{% url 'equipment_edit' equipment_id=equipment.id %}">Edit</a> {% endcomment %}
                     </div>
                     <div class="content">
                         <div class="header">
@@ -27,7 +26,6 @@
                 </div>
             </div>
         </div>
-
 
         <div id="task_show_grid" class="ui segment">     
                 <div class="ui two column very relaxed grid">
@@ -103,11 +101,13 @@
                     <p>Are you sure you want to delete your {{task.task_name}}?  If you do, all related maintenance records will also be deleted.</p> 
                 </div>
                 <div class="actions">
-                    <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
-                        Confirm Delete
-                    </a>
-                    <div class="ui black deny button">Cancel</div>
-                    <input type="hidden" name="next" value="{{ next }}" />
+                    <div class="form_buttons">
+                        <a href="{% url 'task_delete' task_id=task.id %}" class="ui button">
+                            Confirm Delete
+                        </a>
+                        <div class="ui black deny button">Cancel</div>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,11 +123,13 @@
                     <p>Is the equipment up to date for hours/miles?  If not, edit the equipment and then create a maintenance record.</p> 
                 </div>
                 <div class="actions">
-                    <a href="{% url 'create_maint_record' equipment_id=task.equipment_id task_id=task.id %}" class="ui button">
-                        Confirm Create
-                    </a>
-                    <div class="ui black deny button">Cancel</div>
-                    <input type="hidden" name="next" value="{{ next }}" />
+                    <div class="form_buttons">
+                        <a href="{% url 'create_maint_record' equipment_id=task.equipment_id task_id=task.id %}" class="ui button">
+                            Confirm Create
+                        </a>
+                        <div class="ui black deny button">Cancel</div>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </div>
                 </div>
             </div>
         </div>
