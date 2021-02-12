@@ -1,0 +1,443 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base.html */
+body {
+    background: azure;
+    font-size: large;
+}
+
+header {
+    background-color: azure;
+    width: 100vw;
+    height: 75px;
+}
+
+header > div {
+    height: 75px;
+    padding: 0 20px 0 20px;
+}
+
+#logo {
+    padding-top: 20px;
+}
+
+#base_div {
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* padding-top: 20px; */
+    min-width: 370px;
+}
+
+/* text on garage, tools, and consumables pages when no items are available */
+.first_visit_text {
+    color: white;
+}
+
+/* delete modal x icon */
+.right.floated.close.icon:hover {
+    color: red;
+    cursor: pointer;
+    transform: scale(1.3);
+}
+
+/* data presented in horizontal lists */
+.ui.relaxed.horizontal.list {
+    padding: 0 20px 0 20px !important;
+}
+
+.ui.relaxed.horizontal .header {
+    margin: 0 !important;
+}
+
+
+
+/* Home Page */
+.hero {
+    background-color: azure;
+    width: 100%;
+    height: 600px;
+    text-align: center;
+    margin: 0 auto;
+    color: azure;
+    overflow: hidden; 
+    display: grid;
+    grid-template-rows: 250px 100px 100px 150px;
+    grid-template-columns: 1fr;
+    z-index: -1;
+}
+
+.hero h1 {
+    font-size: 4.1em;
+    margin: auto;
+    z-index: 2;
+    color: azure;
+    grid-area: 2/1/3/2
+}
+
+.hero p {
+  font-size: 1.5em;
+  margin: auto;
+  z-index: 2;
+  grid-area: 3/1/4/2;
+}
+
+.hero img {
+    grid-area: 0/1/4/2;
+    width: 100%;
+}
+
+.bar {
+    width: 100%;
+    opacity: 0.3;
+    background: red;
+    grid-area: 2/1/4/2;
+    z-index: 1;
+}
+
+#home_copy {
+    width: 75vw;
+    text-align: center;
+    margin: 0 auto;
+    font-size: large;
+    padding: 40px 0 20px 0;
+}
+
+#home_grid_pics {
+    width: 75vw;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+/* All Forms */
+
+#container-box {
+    height: 75vh !important;
+    margin-top: 20px; 
+}
+
+.form_buttons {
+    padding: 30px;
+}
+
+.hidden.content {
+    font-size: 11px;
+}
+
+/* Garage Page */
+#garage {
+    text-align: center;
+    min-height: 70vh;
+    width: 100%;
+    background-position: center;
+    background-image: url("../resources/shop.ee9131876a16.jpeg");
+    background-color: azure;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6); 
+    margin: 0 auto;
+}
+
+#garage h3 {
+    color: black;
+    font-size: 30px;
+    padding: 20px;
+}
+
+.first_visit_text {
+    color: white;
+}
+
+#garage_cards {
+    margin: 0 auto;
+    max-width: 80vw;
+}
+
+/* Profile Page */
+#profile_new_user {
+    margin: 40px;
+} 
+
+/* Equipment Show Page */
+#equipment_show {
+    width: 90vw;
+    margin: 0 0 20px 50px ;
+    padding-top: 30px;
+} 
+
+#equipment_show_img {
+    max-width: 250px;
+    max-height: 250px;
+}
+
+#equipment_create_task {
+    width: 100%;
+    margin: 60px 0 0 0;
+    text-align: center;
+}
+
+#tabs{
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  #tabs li{
+    float: left;
+    margin: 0 .5em 0 0;
+  }
+  
+  #tabs a{
+    position: relative;
+    background: #ddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+    background-image: -webkit-linear-gradient(top, #fff, #ddd);
+    background-image: -moz-linear-gradient(top, #fff, #ddd);
+    background-image: -ms-linear-gradient(top, #fff, #ddd);
+    background-image: -o-linear-gradient(top, #fff, #ddd);
+    background-image: linear-gradient(to bottom, #fff, #ddd);  
+    padding: .7em 3.5em;
+    float: left;
+    text-decoration: none;
+    color: #444;
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+    border-radius: 5px 0 0 0;
+    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+    -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+    box-shadow: 0 2px 2px rgba(0,0,0,.4);
+  }
+  
+  #tabs a:hover,
+  #tabs a:hover::after,
+  #tabs a:focus,
+  #tabs a:focus::after{
+    background: #fff;
+  }
+  
+  #tabs a:focus{
+    outline: 0;
+  }
+  
+  #tabs a::after{
+    content:'';
+    position:absolute;
+    z-index: 1;
+    top: 0;
+    right: -.5em;  
+    bottom: 0;
+    width: 1em;
+    background: #ddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+    background-image: -webkit-linear-gradient(top, #fff, #ddd);
+    background-image: -moz-linear-gradient(top, #fff, #ddd);
+    background-image: -ms-linear-gradient(top, #fff, #ddd);
+    background-image: -o-linear-gradient(top, #fff, #ddd);
+    background-image: linear-gradient(to bottom, #fff, #ddd);  
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    -webkit-transform: skew(10deg);
+    -moz-transform: skew(10deg);
+    -ms-transform: skew(10deg);
+    -o-transform: skew(10deg);
+    transform: skew(10deg);
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+    border-radius: 0 5px 0 0;  
+  }
+  
+  #tabs #current a{
+    background: #fff;
+    z-index: 3;
+  }
+  
+  #tabs #current a::after{
+    background: #fff;
+    z-index: 3;
+  }
+  
+  /* ------------------------------------------------- */
+  
+  #tab_content
+  {
+      background: #fff;
+      padding: 1em 0 0 0;
+      min-height: 50vh;
+      position: relative;
+      z-index: 2;	
+      -moz-border-radius: 0 5px 5px 5px;
+      -webkit-border-radius: 0 5px 5px 5px;
+      border-radius: 0 5px 5px 5px;
+      -moz-box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
+      -webkit-box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
+      box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
+  }
+  
+  #tab_content h2, #tab_content h3, #tab_content p
+  {
+      margin: 0 0 15px 0;
+  }
+  
+  /* ------------------------------------------------- */
+  
+  #about
+  {
+      color: #999;
+  }
+  
+  #about a
+  {
+      color: #eee;
+  }
+
+/* 
+Author: Tim Murtaugh
+Availability: https://codepen.io/murtaugh/pen/vxaAp  
+*/
+.lined-paper {
+    min-height: 50vh;
+    position: relative;
+    background-color: #ffffe7; 
+    background-image: 
+        linear-gradient(90deg, transparent 29px, #fcc 29px, #fcc 31px, transparent 31px),
+        linear-gradient(90deg, transparent 49px, #fcc 49px, #fcc 51px, transparent 51px),
+        linear-gradient(rgba(153,204,255,.3) .1em, transparent .1em);
+    background-size: 100% 1.5em;
+  }
+  
+  .lined-paper:before {
+      /* content: ''; */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4em;
+      background-color: #ffffe7; 
+      background-image: 
+          linear-gradient(90deg, transparent 29px, #fcc 29px, #fcc 31px, transparent 31px),
+          linear-gradient(90deg, transparent 49px, #fcc 49px, #fcc 51px, transparent 51px);
+  }
+
+  .paper_tabs {
+      padding: 25px 60px 15px 60px;
+      font-family: 'Gaegu', cursive, sans-serif !important;
+      font-size: 1.2em !important;
+  }
+
+  .handwritten {
+    font-family: 'Gaegu', cursive, sans-serif !important;
+    font-size: 1.2em !important;
+  }
+
+  /* Tool Index Page */
+#tool {
+    text-align: center;
+    min-height: 75vh;
+    min-width: 370px;
+    width: 100%;
+    background-position: center;
+    background-image: url("../resources/shop.ee9131876a16.jpeg");
+    background-color: azure;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6); 
+    margin: 0 auto;
+}
+
+#tool h3 {
+    color: white;
+    font-size: 30px;
+    padding: 20px;
+}
+
+#tool_cards {
+    margin: 0 auto;
+    max-width: 80vw;
+}
+
+/* Task show page */
+#task_show {
+    min-height: 75vh;
+    min-width: 370px;
+    width: 100%;
+    text-align: left;
+    padding: 30px 30px 0 30px;
+}
+
+#task_show_grid {
+    max-width: 80vw;
+    text-align: center;
+    margin: 0 auto
+}
+
+#task_show_buttons {
+    text-align: center;
+    margin: 0 auto;
+    width: 100vw;
+    padding: 30px;
+}
+
+#task_show_video {
+    max-width: 50vw;
+    text-align: center;
+    margin: 0 auto;
+    padding: 30px;
+
+}
+
+/* Consumable Index Page */
+#consumable {
+    text-align: center;
+    min-height: 75vh;
+    min-width: 370px;
+    width: 100%;
+    background-position: center;
+    background-image: url("../resources/shop.ee9131876a16.jpeg");
+    background-color: azure;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6); 
+    margin: 0 auto;
+}
+
+#consumable h3 {
+    color: white;
+    font-size: 30px;
+    padding: 20px;
+}
+
+#consumable_cards {
+    margin: 0 auto;
+    max-width: 80vw;
+}
+
+/* profile page */
+#profile {
+    text-align: center;
+    min-height: 75vh;
+    min-width: 370px;
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+/* Footer */
+#footer {
+    background-color: azure;
+    width: 100%;
+    text-align: center;
+}
