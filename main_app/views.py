@@ -91,6 +91,7 @@ def profile_edit(request):
                 user.email = email
                 user.profile.location = location
                 user.profile.hourly_rate = hourly_rate
+                user.username = username
                 user.save()
                 return redirect('profile')
 
