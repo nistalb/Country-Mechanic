@@ -83,11 +83,11 @@ def profile_edit(request):
         username = request.POST['username']
 
         if User.objects.filter(username=username).exclude(id=request.user.id).exists():
-            context={'error': 'Username is already taken'}
+            context={'error': 'Username is already taken', 'profile': profile}
             return render(request, 'profile/edit.html', context)
         else:
             if User.objects.filter(email=email).exclude(id=request.user.id).exists():
-                context={'error': 'Email is already taken'}
+                context={'error': 'Email is already taken', 'profile': profile}
                 return render(request, 'profile/edit.html', context)
             else:
                 user.last_name = last_name

@@ -55,11 +55,13 @@
                     <p>Are you sure you want to delete your Account?</p> 
                 </div>
                 <div class="actions">
-                    <a href="{% url 'profile_delete' %}" class="ui button">
-                        Confirm Delete
-                    </a>
-                    <div class="ui black deny button">Cancel</div>
-                    <input type="hidden" name="next" value="{{ next }}" />
+                    <div class="form_buttons">
+                        <a href="{% url 'profile_delete' %}" class="ui button">
+                            Confirm Delete
+                        </a>
+                        <div class="ui black deny button">Cancel</div>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </div>
                 </div>
             </div>
         </div>
