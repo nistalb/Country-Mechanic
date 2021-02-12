@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
@@ -46,12 +47,14 @@ def home(request):
     return render(request, 'home.html', context)
 
 # === Garage ====
+@login_required
 def garage(request):
     equipment = Equipment.objects.filter(user_id=request.user.id)
     context = {'equipment': equipment}
     return render(request, 'garage.html', context)
 
 # === Profile ===
+@login_required
 def profile(request):
     profile = Profile.objects.get(user_id=request.user.id)
     if request.method == 'POST':
@@ -67,6 +70,7 @@ def profile(request):
     context = {'user': user, 'profile_form': profile_form, 'profile': profile}
     return render(request, 'profile/profile.html', context)
 
+@login_required
 def profile_edit(request):
     profile = Profile.objects.get(user_id=request.user.id)
     user = User.objects.get(id=request.user.id)
@@ -100,12 +104,14 @@ def profile_edit(request):
     context = {'profile_form': profile_form, 'user_form': user_form, 'user': user, 'profile': profile}
     return render(request, 'profile/edit.html', context)
 
+@login_required
 def profile_delete(request):
     User.objects.get(id=request.user.id).delete()
     return redirect('home')
 
 
 # === Equipment ===
+@login_required
 def equipment_create(request):
     if request.method == 'POST':
         equipment_form = EquipmentForm(request.POST)
@@ -119,6 +125,7 @@ def equipment_create(request):
     context = {'equipment_form': equipment_form}
     return render(request, 'equipment/create.html', context)
 
+@login_required
 def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     tasks = equipment.task_set.all()
@@ -129,6 +136,7 @@ def equipment_show(request, equipment_id):
     context = {'equipment': equipment, 'tasks': tasks, 'maintenance': maintenance, 'tools': tools, 'consumables': consumables}
     return render(request, 'equipment/show.html', context)
 
+@login_required
 def equipment_edit(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     if request.method == 'POST':
@@ -141,11 +149,13 @@ def equipment_edit(request, equipment_id):
     context = {'equipment_form': equipment_form, 'equipment': equipment}
     return render(request, 'equipment/edit.html', context)
 
+@login_required
 def equipment_delete(request, equipment_id):
     Equipment.objects.get(id=equipment_id).delete()
     return redirect('garage')
 
 # === Task ====
+@login_required
 def task_create(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     if request.method == 'POST':
@@ -165,11 +175,13 @@ def task_create(request, equipment_id):
     context = {'task_form': task_form, 'equipment_id': equipment_id}
     return render(request, 'task/create.html', context)
 
+@login_required
 def task_show(request, task_id):
     task = Task.objects.get(id=task_id)
     context = {'task': task}
     return render(request, 'task/show.html', context)
 
+@login_required
 def task_edit(request, task_id):
     task = Task.objects.get(id=task_id)
     if request.method == 'POST':
@@ -184,12 +196,14 @@ def task_edit(request, task_id):
     context = {'task_form': task_form, 'task': task, 'available_tools': available_tools, 'available_consumables': available_consumables}
     return render(request, 'task/edit.html', context)
 
+@login_required
 def task_delete(request, task_id):
     task = Task.objects.get(id=task_id)
     task.delete()
     return redirect('equipment_show', equipment_id=task.equipment_id)
 
 # === Maint Record ===
+@login_required
 def create_maint_record(request, equipment_id, task_id):
     equipment = Equipment.objects.get(id=equipment_id)
     task = Task.objects.get(id=task_id)
@@ -200,6 +214,7 @@ def create_maint_record(request, equipment_id, task_id):
     return redirect('equipment_show', equipment_id=equipment_id)
 
 # === Tools ===
+@login_required
 def tool_index(request):
     tools = Tool.objects.filter(user_id=request.user.id)
     nextvalue = request.GET.get('next')
@@ -207,6 +222,7 @@ def tool_index(request):
     context = {'tools': tools, "next": nextvalue}
     return render(request, 'tool/index.html', context)
 
+@login_required
 def tool_create(request):
     nextvalue = request.GET.get('next')
     print(nextvalue)
@@ -222,26 +238,31 @@ def tool_create(request):
     context = {'tool_form': tool_form, "next": nextvalue}
     return render(request, 'tool/create.html', context)
 
+@login_required
 def tool_delete(request, tool_id):
     tool = Tool.objects.get(id=tool_id)
     tool.delete()
     return redirect('tool_index')
 
+@login_required
 def tool_assoc(request, task_id, tool_id):
     Task.objects.get(id=task_id).tool.add(tool_id)
     return redirect('task_edit', task_id=task_id)
 
+@login_required
 def tool_deassoc(request, task_id, tool_id):
     Task.objects.get(id=task_id).tool.remove(tool_id)
     return redirect('task_edit', task_id=task_id)
 
 # === Consumables ===
+@login_required
 def consumable_index(request):
     consumables = Consumables.objects.filter(user_id=request.user.id)
     nextvalue = request.GET.get('next')
     context = {'consumables': consumables, 'next': nextvalue}
     return render(request, 'consumables/index.html', context)
 
+@login_required
 def consumable_create(request):
     nextvalue = request.GET.get('next')
     if request.method == 'POST':
@@ -256,20 +277,24 @@ def consumable_create(request):
     context = {'consumable_form': consumable_form, 'next': nextvalue}
     return render(request, 'consumables/create.html', context)
 
+@login_required
 def consumable_delete(request, consumable_id):
     consumable = Consumables.objects.get(id=consumable_id)
     consumable.delete()
     return redirect('consumable_index')
 
+@login_required
 def consumable_assoc(request, task_id, consumable_id):
     Task.objects.get(id=task_id).consumable.add(consumable_id)
     return redirect('task_edit', task_id=task_id)
 
+@login_required
 def consumable_deassoc(request, task_id, consumable_id):
     Task.objects.get(id=task_id).consumable.remove(consumable_id)
     return redirect('task_edit', task_id=task_id)
 
 # === Photo ===
+@login_required
 def add_photo(request, equipment_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
@@ -290,6 +315,7 @@ def add_photo(request, equipment_id):
             print('An error occurred uploading file to S3')
     return redirect('equipment_show', equipment_id=equipment_id)
 
+@login_required
 def delete_photo(request, photo_id, equipment_id):
     Photo.objects.get(id=photo_id).delete()
     return redirect('equipment_show', equipment_id=equipment_id)
