@@ -46,7 +46,7 @@
     {% endif %}
       
     <div class="form_buttons">
-        <a  href="{% url 'tool_create' %}">
+        <a  href="{% url 'tool_create' %}?next={{next}}">
             <div class="ui vertical animated button" tabindex="0">
                 <div class="hidden content">Add tool</div>
                 <div class="visible content">

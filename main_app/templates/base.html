@@ -267,7 +267,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="ui item button" href="{% url 'tool_index' %}">
+                    <a class="ui item button" href="{% url 'tool_index' %}?next={{request.get_full_path}}">
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Tools</div>
                             <div class="visible content">
@@ -275,7 +275,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="ui item button" href="{% url 'consumable_index' %}">
+                    <a class="ui item button" href="{% url 'consumable_index' %}?next={{request.get_full_path}}">
                         <div class="ui vertical animated button" tabindex="0">
                             <div class="hidden content">Consumables</div>
                             <div class="visible content">

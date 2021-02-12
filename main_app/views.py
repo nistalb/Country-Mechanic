@@ -201,20 +201,24 @@ def create_maint_record(request, equipment_id, task_id):
 # === Tools ===
 def tool_index(request):
     tools = Tool.objects.filter(user_id=request.user.id)
-    context = {'tools': tools}
+    nextvalue = request.GET.get('next')
+    print(nextvalue)
+    context = {'tools': tools, "next": nextvalue}
     return render(request, 'tool/index.html', context)
 
 def tool_create(request):
+    nextvalue = request.GET.get('next')
+    print(nextvalue)
     if request.method == 'POST':
         tool_form = ToolForm(request.POST)
         if tool_form.is_valid():
             tool = tool_form.save(commit=False)
             tool.user = request.user
             tool.save()
-            return redirect('tool_index')
+            return redirect(nextvalue)
 
     tool_form = ToolForm()
-    context = {'tool_form': tool_form}
+    context = {'tool_form': tool_form, "next": nextvalue}
     return render(request, 'tool/create.html', context)
 
 def tool_delete(request, tool_id):
@@ -233,20 +237,22 @@ def tool_deassoc(request, task_id, tool_id):
 # === Consumables ===
 def consumable_index(request):
     consumables = Consumables.objects.filter(user_id=request.user.id)
-    context = {'consumables': consumables}
+    nextvalue = request.GET.get('next')
+    context = {'consumables': consumables, 'next': nextvalue}
     return render(request, 'consumables/index.html', context)
 
 def consumable_create(request):
+    nextvalue = request.GET.get('next')
     if request.method == 'POST':
         consumable_form = ConsumableForm(request.POST)
         if consumable_form.is_valid():
             consumable = consumable_form.save(commit=False)
             consumable.user = request.user
             consumable.save()
-            return redirect('consumable_index')
+            return redirect(nextvalue)
 
     consumable_form = ConsumableForm()
-    context = {'consumable_form': consumable_form}
+    context = {'consumable_form': consumable_form, 'next': nextvalue}
     return render(request, 'consumables/create.html', context)
 
 def consumable_delete(request, consumable_id):

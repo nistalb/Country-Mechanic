@@ -50,7 +50,7 @@
     {% endif %}
 
     <div class="form_buttons">   
-        <a id="consumable_create_button" href="{% url 'consumable_create' %}">
+        <a id="consumable_create_button" href="{% url 'consumable_create' %}?next={{next}}">
             <div class="ui vertical animated button" tabindex="0">
                 <div class="hidden content">Add Consumable</div>
                 <div class="visible content">

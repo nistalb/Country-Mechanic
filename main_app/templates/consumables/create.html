@@ -3,7 +3,7 @@
 
 <div id="container-box" class="ui center aligned stackable grid container">
 
-    <form action="{% url 'consumable_create' %}" method="POST">
+    <form action="{% url 'consumable_create' %}?next={{next}}" method="POST">
         {% csrf_token %}
 
         <div class="ui equal width form">
