@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+# for hosting this app on Heroku
+import django_on_heroku
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -128,3 +131,6 @@ LOGIN_URL = '/'
 
 # where requests are redirected after logout
 LOGOUT_REDIRECT_URL = '/'
+
+# for hosting this app on Heroku
+django_on_heroku.settings(locals())
