@@ -1,1 +1,1 @@
-web: gunicorn country-mechanic.wsgi
+web: gunicorn country_mechanic.wsgi
