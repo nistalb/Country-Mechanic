@@ -10,6 +10,9 @@ from .forms import NewUserForm, ProfileForm, EquipmentForm, TaskForm, ToolForm, 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumables, Maint_Record, Photo
 
+# import custom functions
+from .custom_app import task_cost
+
 # AWS Imports
 import boto3
 import uuid
@@ -178,7 +181,10 @@ def task_create(request, equipment_id):
 @login_required
 def task_show(request, task_id):
     task = Task.objects.get(id=task_id)
-    context = {'task': task}
+    profile = Profile.objects.get(user_id=request.user.id)
+    consumables = task.consumable.all()
+    cost = task_cost(profile, task, consumables)
+    context = {'task': task, 'cost': cost}
     return render(request, 'task/show.html', context)
 
 @login_required
