@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
 # import forms
@@ -22,6 +23,24 @@ S3_BASE_URL = 'https://s3-us-west-2.amazonaws.com/'
 BUCKET = 'country-mechanic'
 
 
+# ==== Login ====
+def login_user(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('garage')
+        else:
+            messages.error(request, 'username or password not correct')
+            return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'home.html', {'form': form})
+
 # ==== Home ====
 def home(request):
     if request.method == 'POST':
@@ -39,7 +58,7 @@ def home(request):
                 if signup_form.is_valid():
                     user = signup_form.save()
                     login(request, user)
-                    return redirect('garage/')
+                    return redirect('garage')
                 else:
                     context = {'error': 'Invalid signup, please try again'}
                     return render(request, 'home.html', context)

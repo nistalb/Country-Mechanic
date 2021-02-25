@@ -30,7 +30,6 @@ header > div {
     height: auto;
     overflow-y: auto;
     overflow-x: hidden;
-    /* padding-top: 20px; */
     min-width: 370px;
 }
 
