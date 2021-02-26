@@ -15,6 +15,12 @@ from pathlib import Path
 # for hosting this app on Heroku
 import django_on_heroku
 
+# use dot_env to store secrets
+from dotenv import load_dotenv
+load_dotenv()
+
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
