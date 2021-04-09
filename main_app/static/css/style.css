@@ -344,7 +344,6 @@ Availability: https://codepen.io/murtaugh/pen/vxaAp
   }
   
   .lined-paper:before {
-      /* content: ''; */
       position: absolute;
       top: 0;
       left: 0;
