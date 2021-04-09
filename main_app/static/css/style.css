@@ -26,6 +26,13 @@ header > div {
     padding-top: 20px;
 }
 
+@media (max-width: 500px) {
+    #logo {
+        padding-top: 30px;
+        font-size: 1.2em;
+    }
+}
+
 #base_div {
     height: auto;
     overflow-y: auto;
@@ -123,6 +130,16 @@ header > div {
     text-align: center;
     margin: 0 auto;
     padding-top: 20px;
+}
+
+#home_grid_pics img {
+    width: 22vw;
+}
+
+@media (max-width: 800px) {
+    #home_grid_pics img {
+        width: 50vw;
+    }
 }
 
 /* All Forms */
