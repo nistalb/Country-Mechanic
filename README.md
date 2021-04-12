@@ -29,10 +29,23 @@ Tools and consumables are created from thier own index pages.  After a tool or c
 - Amazon S3
 - Jquery
 - Semantic UI
+- HTML
+- CSS
 
 # Installation
- - Clone applicaiton
- - in terminal run:  pip3 install -r requirements.txt
+ - Prepare local machine
+    - make a directory using the mkdir command
+    - create a virtual environment: `python3 -m venv .env`
+    - activate the environment: `source .env/bin/activate`
+ - Clone application into the previously created directory
+ - Install dependencies:  `pip3 install -r requirements.txt`
+ - Run the server: `python3 manage.py runserver`
+ - Verify that the server is running by browsing to localhost:8000.  The home page for country mechanic should be visible
+ - Create a database on local machine
+ - Add the database to settings.py
+ - Migrate models to the database: `python3 manage.py migrate`
+ - Create a superuser: `python3 manage.py createsuperuser`
+
 
  # Wireframes
  [Wireframes](/planning_docs/Wireframes.png)
