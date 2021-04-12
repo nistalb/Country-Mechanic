@@ -38,7 +38,7 @@ Tools and consumables are created from thier own index pages.  After a tool or c
  [Wireframes](/planning_docs/Wireframes.png)
 
  # ERD
- [ERD](planning_docs/ERD.drawio)
+ ![ERD](planning_docs/ERD.svg)
 
 
 
